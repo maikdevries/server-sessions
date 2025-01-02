@@ -1,6 +1,4 @@
-import type { Session } from './types.ts';
-
-export default class ServerSession implements Session {
+export default class Session {
 	private readonly store: Map<string | number | symbol, unknown>;
 
 	constructor() {
@@ -20,6 +18,7 @@ export default class ServerSession implements Session {
 	}
 
 	set(key: string | number | symbol, value: unknown): Session {
-		return this.store.set(key, value);
+		this.store.set(key, value);
+		return this;
 	}
 }
