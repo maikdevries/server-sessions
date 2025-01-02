@@ -1,7 +1,10 @@
 export default class Session {
+	public readonly id: string;
+
 	private readonly store: Map<string | number | symbol, unknown>;
 
 	constructor() {
+		this.id = crypto.randomUUID();
 		this.store = new Map();
 	}
 
