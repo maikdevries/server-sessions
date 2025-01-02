@@ -8,19 +8,19 @@ export default class SessionStore implements Store {
 		this.sessions = new Map();
 	}
 
-	delete(key: string): boolean {
+	public delete(key: string): boolean {
 		return this.sessions.delete(key);
 	}
 
-	get(key: string): Session | undefined {
+	public get(key: string): Session | undefined {
 		return this.sessions.get(key);
 	}
 
-	has(key: string): boolean {
+	public has(key: string): boolean {
 		return this.sessions.has(key);
 	}
 
-	set(key: string, value: Session): Store {
+	public set(key: string, value: Session): Store {
 		return this.sessions.set(key, value);
 	}
 }
