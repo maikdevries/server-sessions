@@ -12,7 +12,7 @@ export function configure(options: Options): void {
 	if (options.store) sessions = options.store;
 }
 
-export async function session(
+export async function handle(
 	request: Request,
 	next: (request: Request, session: Session) => Response | Promise<Response>,
 ): Promise<Response> {
