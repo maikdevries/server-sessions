@@ -76,5 +76,13 @@
 				"recommended"
 			]
 		}
+	},
+	"publish": {
+		"include": [
+			"src/**/*.ts",
+			"LICENSE",
+			"mod.ts",
+			"README.md"
+		]
 	}
 }
