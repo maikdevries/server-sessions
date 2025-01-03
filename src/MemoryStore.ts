@@ -1,7 +1,7 @@
 import type Session from './Session.ts';
 import type { Store } from './types.ts';
 
-export default class SessionStore implements Store {
+export default class MemoryStore implements Store {
 	private readonly sessions: Map<string, Session>;
 
 	constructor() {

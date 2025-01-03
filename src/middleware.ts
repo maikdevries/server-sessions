@@ -2,10 +2,10 @@ import type { Options, Store } from './types.ts';
 
 import Cookie from './Cookie.ts';
 import Session from './Session.ts';
-import SessionStore from './Store.ts';
+import MemoryStore from './MemoryStore.ts';
 
 let cookie: Cookie = new Cookie();
-let sessions: Store = new SessionStore();
+let sessions: Store = new MemoryStore();
 
 export function configure(options: Options): void {
 	if (options.cookie) cookie = new Cookie(options.cookie);
