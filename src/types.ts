@@ -13,6 +13,11 @@ export interface CookieOptions {
 	secure?: boolean;
 }
 
+export interface Options {
+	cookie?: CookieOptions;
+	store?: Store;
+}
+
 export interface Store {
 	delete: (key: string) => boolean;
 	get: (key: string) => Session | undefined;
