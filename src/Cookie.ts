@@ -14,8 +14,6 @@ export default class Cookie {
 		'secure': true,
 	};
 
-	private static readonly PREFIX_PATTERN: RegExp = new RegExp(/__Host-|__Secure-/, 'g');
-
 	private readonly options: Required<CookieOptions>;
 
 	constructor(options: CookieOptions = {}) {
@@ -33,7 +31,7 @@ export default class Cookie {
 		const cookies = headers.get('Cookie');
 		if (!cookies) return {};
 
-		return Object.fromEntries(cookies.replaceAll(Cookie.PREFIX_PATTERN, '').split(';').map((cookie) => cookie.trim().split('=')));
+		return Object.fromEntries(cookies.split(';').map((cookie) => cookie.trim().split('=')));
 	}
 
 	public set(response: Response, value: unknown): Response {
