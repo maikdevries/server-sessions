@@ -1,5 +1,4 @@
-import type Session from './Session.ts';
-import type { Store } from './types.ts';
+import type { Session, Store } from './types.ts';
 
 export default class MemoryStore implements Store {
 	private readonly sessions: Map<string, Session>;

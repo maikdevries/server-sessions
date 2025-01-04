@@ -1,5 +1,3 @@
-import type Session from './Session.ts';
-
 export interface CookieOptions {
 	domain?: string;
 	expires?: string;
@@ -16,6 +14,14 @@ export interface CookieOptions {
 export interface Options {
 	cookie?: CookieOptions;
 	store?: Store;
+}
+
+export interface Session {
+	id: string;
+	delete: (key: string | number | symbol) => boolean;
+	get: (key: string | number | symbol) => unknown | undefined;
+	has: (key: string | number | symbol) => boolean;
+	set: (key: string | number | symbol, value: unknown) => Session;
 }
 
 export interface Store {

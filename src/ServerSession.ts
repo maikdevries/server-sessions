@@ -1,4 +1,6 @@
-export default class Session {
+import type { Session } from './types.ts';
+
+export default class ServerSession implements Session {
 	public readonly id: string;
 
 	private readonly store: Map<string | number | symbol, unknown>;
