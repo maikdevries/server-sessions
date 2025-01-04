@@ -26,7 +26,7 @@ export default class Cookie {
 	}
 
 	get name(): string {
-		return this.options.name;
+		return `${this.options.prefix ? `__${this.options.prefix}-` : ''}${this.options.name}`;
 	}
 
 	public static parse(headers: Headers): Record<string, string> {
@@ -45,7 +45,7 @@ export default class Cookie {
 
 	private stringify(value: unknown): string {
 		const out = [
-			`${this.options.prefix ? `__${this.options.prefix}-` : ''}${this.options.name}=${value}`,
+			`${this.name}=${value}`,
 			this.options.domain && `Domain=${this.options.domain}`,
 			this.options.expires && `Expires=${new Date(this.options.expires).toUTCString()}`,
 			this.options.httpOnly && 'HttpOnly',
