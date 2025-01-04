@@ -6,7 +6,7 @@ export interface CookieOptions {
 	name?: string;
 	partitioned?: boolean;
 	path?: string;
-	prefix?: 'Host' | 'Secure';
+	prefix?: 'Host' | 'Secure' | '';
 	sameSite?: 'Strict' | 'Lax' | 'None';
 	secure?: boolean;
 }
