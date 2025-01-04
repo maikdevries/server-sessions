@@ -24,5 +24,5 @@ export async function handle(
 	const response = await next(request, session);
 
 	sessions.set(session.id, session);
-	return cookie.set(response, session.id);
+	return cookie.set(response, session.id, session.tombstone - Date.now());
 }

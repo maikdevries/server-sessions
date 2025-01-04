@@ -32,16 +32,17 @@ export default class Cookie {
 		return Object.fromEntries(cookies.split(';').map((cookie) => cookie.trim().split('=')));
 	}
 
-	public set(response: Response, value: unknown): Response {
+	public set(response: Response, value: unknown, ttl: number): Response {
 		const clone = new Response(response.body, response);
-		clone.headers.append('Set-Cookie', this.stringify(value));
+		clone.headers.append('Set-Cookie', this.stringify(value, Math.round(ttl / 1000)));
 
 		return clone;
 	}
 
-	private stringify(value: unknown): string {
+	private stringify(value: unknown, maxAge: number): string {
 		const out = [
 			`${this.name}=${value}`,
+			`Max-Age=${maxAge}`,
 			this.options.domain && `Domain=${this.options.domain}`,
 			this.options.httpOnly && 'HttpOnly',
 			this.options.partitioned && 'Partitioned',
