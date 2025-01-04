@@ -13,6 +13,7 @@ export interface CookieOptions {
 
 export interface Options {
 	cookie?: CookieOptions;
+	expiration?: number;
 	store?: Store;
 }
 
