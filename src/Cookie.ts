@@ -14,7 +14,7 @@ export default class Cookie {
 		'secure': true,
 	};
 
-	private static readonly PREFIX_PATTERN: RegExp = /__Host-|__Secure-/g;
+	private static readonly PREFIX_PATTERN: RegExp = new RegExp(/__Host-|__Secure-/, 'g');
 
 	private readonly options: Required<CookieOptions>;
 
