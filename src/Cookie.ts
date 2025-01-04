@@ -3,9 +3,7 @@ import type { CookieOptions } from './types.ts';
 export default class Cookie {
 	private static readonly defaults: Required<CookieOptions> = {
 		'domain': '',
-		'expires': '',
 		'httpOnly': true,
-		'maxAge': 1 * 60 * 60 * 24,
 		'name': 'sessionID',
 		'partitioned': false,
 		'path': '/',
@@ -45,9 +43,7 @@ export default class Cookie {
 		const out = [
 			`${this.name}=${value}`,
 			this.options.domain && `Domain=${this.options.domain}`,
-			this.options.expires && `Expires=${new Date(this.options.expires).toUTCString()}`,
 			this.options.httpOnly && 'HttpOnly',
-			this.options.maxAge >= 0 && `Max-Age=${this.options.maxAge}`,
 			this.options.partitioned && 'Partitioned',
 			this.options.path && `Path=${this.options.path}`,
 			this.options.sameSite && `SameSite=${this.options.sameSite}`,

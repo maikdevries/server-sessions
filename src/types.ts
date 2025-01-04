@@ -1,8 +1,6 @@
 export interface CookieOptions {
 	domain?: string;
-	expires?: string;
 	httpOnly?: boolean;
-	maxAge?: number;
 	name?: string;
 	partitioned?: boolean;
 	path?: string;
