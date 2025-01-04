@@ -2,11 +2,13 @@ import type { Session } from './types.ts';
 
 export default class ServerSession implements Session {
 	public readonly id: string;
+	public readonly tombstone: number;
 
 	private readonly store: Map<string | number | symbol, unknown>;
 
-	constructor() {
+	constructor(tombstone: number) {
 		this.id = crypto.randomUUID();
+		this.tombstone = tombstone;
 		this.store = new Map();
 	}
 
