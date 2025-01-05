@@ -15,7 +15,7 @@ export default class MemoryStore implements Store {
         const session = this.sessions.get(key);
         if (!session) return undefined;
 
-        if (session.tombstone > Date.now()) return session;
+        if (session.tombstone > Date.now()) return session.touch();
         else {
             this.sessions.delete(key);
             return undefined;
@@ -27,6 +27,6 @@ export default class MemoryStore implements Store {
 	}
 
 	public set(key: string, value: Session): Store {
-		return this.sessions.set(key, value);
+		return this.sessions.set(key, value.touch());
 	}
 }
