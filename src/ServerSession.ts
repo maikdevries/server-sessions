@@ -1,39 +1,47 @@
 import type { Session } from './types.ts';
 
 export default class ServerSession implements Session {
-	public readonly id: string;
-	public tombstone: number;
+	#id: string;
+	#tombstone: number;
 
-	private readonly expiration: number;
-	private readonly store: Map<string | number | symbol, unknown>;
+	#expiration: number;
+	#store: Map<string | number | symbol, unknown>;
 
 	constructor(expiration: number) {
-		this.id = crypto.randomUUID();
-		this.tombstone = Date.now() + expiration;
+		this.#id = crypto.randomUUID();
+		this.#tombstone = Date.now() + expiration;
 
-		this.expiration = expiration;
-		this.store = new Map();
+		this.#expiration = expiration;
+		this.#store = new Map();
 	}
 
-	public delete(key: string | number | symbol): boolean {
-		return this.store.delete(key);
+	get id(): string {
+		return this.#id;
 	}
 
-	public get(key: string | number | symbol): unknown | undefined {
-		return this.store.get(key);
+	get tombstone(): number {
+		return this.#tombstone;
 	}
 
-	public has(key: string | number | symbol): boolean {
-		return this.store.has(key);
+	delete(key: string | number | symbol): boolean {
+		return this.#store.delete(key);
 	}
 
-	public set(key: string | number | symbol, value: unknown): Session {
-		this.store.set(key, value);
+	get(key: string | number | symbol): unknown | undefined {
+		return this.#store.get(key);
+	}
+
+	has(key: string | number | symbol): boolean {
+		return this.#store.has(key);
+	}
+
+	set(key: string | number | symbol, value: unknown): Session {
+		this.#store.set(key, value);
 		return this;
 	}
 
-	public touch(): Session {
-		this.tombstone = Date.now() + this.expiration;
+	touch(): Session {
+		this.#tombstone = Date.now() + this.#expiration;
 		return this;
 	}
 }

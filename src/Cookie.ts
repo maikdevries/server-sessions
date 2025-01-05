@@ -1,7 +1,7 @@
 import type { CookieOptions } from './types.ts';
 
 export default class Cookie {
-	private static readonly defaults: Required<CookieOptions> = {
+	static #defaults: Required<CookieOptions> = {
 		'domain': '',
 		'httpOnly': true,
 		'name': 'sessionID',
@@ -12,43 +12,43 @@ export default class Cookie {
 		'secure': true,
 	};
 
-	private readonly options: Required<CookieOptions>;
+	#options: Required<CookieOptions>;
 
 	constructor(options: CookieOptions = {}) {
-		this.options = {
-			...Cookie.defaults,
+		this.#options = {
+			...Cookie.#defaults,
 			...options,
 		};
 	}
 
 	get name(): string {
-		return `${this.options.prefix ? `__${this.options.prefix}-` : ''}${this.options.name}`;
+		return `${this.#options.prefix ? `__${this.#options.prefix}-` : ''}${this.#options.name}`;
 	}
 
-	public static parse(headers: Headers): Record<string, string> {
+	static parse(headers: Headers): Record<string, string> {
 		const cookies = headers.get('Cookie');
 		if (!cookies) return {};
 
 		return Object.fromEntries(cookies.split(';').map((cookie) => cookie.trim().split('=')));
 	}
 
-	public set(response: Response, value: unknown, ttl: number): Response {
+	set(response: Response, value: unknown, ttl: number): Response {
 		const clone = new Response(response.body, response);
-		clone.headers.append('Set-Cookie', this.stringify(value, Math.round(ttl / 1000)));
+		clone.headers.append('Set-Cookie', this.#stringify(value, Math.round(ttl / 1000)));
 
 		return clone;
 	}
 
-	private stringify(value: unknown, maxAge: number): string {
+	#stringify(value: unknown, maxAge: number): string {
 		const out = [
 			`${this.name}=${value}`,
 			`Max-Age=${maxAge}`,
-			this.options.domain && `Domain=${this.options.domain}`,
-			this.options.httpOnly && 'HttpOnly',
-			this.options.partitioned && 'Partitioned',
-			this.options.path && `Path=${this.options.path}`,
-			this.options.sameSite && `SameSite=${this.options.sameSite}`,
-			this.options.secure && 'Secure',
+			this.#options.domain && `Domain=${this.#options.domain}`,
+			this.#options.httpOnly && 'HttpOnly',
+			this.#options.partitioned && 'Partitioned',
+			this.#options.path && `Path=${this.#options.path}`,
+			this.#options.sameSite && `SameSite=${this.#options.sameSite}`,
+			this.#options.secure && 'Secure',
 		];
 
 		// [NOTE] Filter out all falsy options before stringification
