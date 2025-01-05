@@ -4,11 +4,14 @@ export default class ServerSession implements Session {
 	public readonly id: string;
 	public readonly tombstone: number;
 
+	private readonly expiration: number;
 	private readonly store: Map<string | number | symbol, unknown>;
 
-	constructor(tombstone: number) {
+	constructor(expiration: number) {
 		this.id = crypto.randomUUID();
-		this.tombstone = tombstone;
+		this.tombstone = Date.now() + expiration;
+
+		this.expiration = expiration;
 		this.store = new Map();
 	}
 

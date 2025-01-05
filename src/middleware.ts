@@ -19,7 +19,7 @@ export async function handle(
 	next: (request: Request, session: Session) => Response | Promise<Response>,
 ): Promise<Response> {
 	const { [cookie.name]: sessionID = '' } = Cookie.parse(request.headers);
-	const session = sessions.get(sessionID) ?? new ServerSession(Date.now() + expiration);
+	const session = sessions.get(sessionID) ?? new ServerSession(expiration);
 
 	const response = await next(request, session);
 
