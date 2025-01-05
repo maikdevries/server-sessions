@@ -22,6 +22,7 @@ export interface Session {
 	get: (key: string | number | symbol) => unknown | undefined;
 	has: (key: string | number | symbol) => boolean;
 	set: (key: string | number | symbol, value: unknown) => Session;
+	touch: () => Session;
 }
 
 export interface Store {

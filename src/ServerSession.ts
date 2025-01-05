@@ -2,7 +2,7 @@ import type { Session } from './types.ts';
 
 export default class ServerSession implements Session {
 	public readonly id: string;
-	public readonly tombstone: number;
+	public tombstone: number;
 
 	private readonly expiration: number;
 	private readonly store: Map<string | number | symbol, unknown>;
@@ -29,6 +29,11 @@ export default class ServerSession implements Session {
 
 	public set(key: string | number | symbol, value: unknown): Session {
 		this.store.set(key, value);
+		return this;
+	}
+
+	public touch(): Session {
+		this.tombstone = Date.now() + this.expiration;
 		return this;
 	}
 }
