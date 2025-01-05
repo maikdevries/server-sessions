@@ -12,14 +12,15 @@ export default class MemoryStore implements Store {
 	}
 
 	public get(key: string): Session | undefined {
-		const session = this.sessions.get(key);
-		if (!session) return undefined;
+        const session = this.sessions.get(key);
+        if (!session) return undefined;
 
-		// [NOTE] Delete the expired session if its tombstone timestamp has passed
-		return session.tombstone > Date.now() ? session : (
-			this.sessions.delete(key), undefined
-		);
-	}
+        if (session.tombstone > Date.now()) return session;
+        else {
+            this.sessions.delete(key);
+            return undefined;
+        }
+    }
 
 	public has(key: string): boolean {
 		return this.sessions.has(key) && Boolean(this.get(key));
