@@ -13,13 +13,15 @@ export default class MemoryStore implements Store {
 
 	get(key: string): Session | undefined {
         const session = this.#sessions.get(key);
-        if (!session) return undefined;
+		if (!session) return undefined;
 
-        if (session.tombstone > Date.now()) return session.touch();
-        else {
-            this.#sessions.delete(key);
-            return undefined;
-        }
+		// [NOTE] Delete the expired session if its tombstone timestamp has passed
+		if (session.tombstone <= Date.now()) {
+			this.#sessions.delete(key);
+			return undefined;
+		}
+
+		return session.touch();
     }
 
 	has(key: string): boolean {
