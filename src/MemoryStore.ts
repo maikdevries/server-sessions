@@ -26,7 +26,7 @@ export default class MemoryStore implements Store {
 		return this.#sessions.has(key) && Boolean(this.get(key));
 	}
 
-	set(key: string, value: Session): Store {
-		return this.#sessions.set(key, value.touch());
+	set(key: string, session: Session): Store {
+		return this.#sessions.set(key, session.touch());
 	}
 }
