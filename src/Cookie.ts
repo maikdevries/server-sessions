@@ -8,7 +8,7 @@ export default class Cookie {
 		'partitioned': false,
 		'path': '/',
 		'prefix': 'Host',
-		'sameSite': 'Strict',
+		'sameSite': 'Lax',
 		'secure': true,
 	};
 
