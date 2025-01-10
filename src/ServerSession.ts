@@ -27,8 +27,8 @@ export default class ServerSession implements Session {
 		return this.#store.delete(key);
 	}
 
-	get(key: string | number | symbol): unknown | undefined {
-		return this.#store.get(key);
+	get<T = unknown>(key: string | number | symbol): T | undefined {
+		return this.#store.get(key) as T | undefined;
 	}
 
 	has(key: string | number | symbol): boolean {

@@ -19,7 +19,7 @@ export interface Session {
 	readonly id: string;
 	readonly tombstone: number;
 	delete: (key: string | number | symbol) => boolean;
-	get: (key: string | number | symbol) => unknown | undefined;
+	get: <T = unknown>(key: string | number | symbol) => T | undefined;
 	has: (key: string | number | symbol) => boolean;
 	set: (key: string | number | symbol, value: unknown) => Session;
 	touch: () => Session;
