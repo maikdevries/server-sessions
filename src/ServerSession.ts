@@ -13,7 +13,7 @@ export default class ServerSession implements Session {
 		this.#tombstone = Date.now() + expiration;
 
 		this.#expiration = expiration;
-		this.#parent = parent;
+		this.#parent = parent.set(this.#id, this);
 		this.#store = new Map();
 	}
 
