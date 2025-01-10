@@ -42,6 +42,11 @@ export default class ServerSession implements Session {
 		return this;
 	}
 
+	terminate(): void {
+		this.#store.clear();
+		this.#parent.delete(this.id);
+	}
+
 	touch(): Session {
 		this.#tombstone = Date.now() + this.#expiration;
 		return this;
