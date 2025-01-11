@@ -11,8 +11,10 @@ export default class ServerSession implements Session {
 		this.#id = crypto.randomUUID();
 		this.#tombstone = Date.now() + parent.expiration;
 
-		this.#parent = parent.set(this.#id, this);
+		this.#parent = parent;
 		this.#store = new Map();
+
+		this.#parent.set(this.#id, this);
 	}
 
 	get id(): string {
