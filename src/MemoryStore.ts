@@ -26,7 +26,7 @@ export default class MemoryStore implements Store {
 	}
 
 	get(key: string): Session | undefined {
-        const session = this.#sessions.get(key);
+		const session = this.#sessions.get(key);
 		if (!session) return undefined;
 
 		// [NOTE] Delete the expired session if its tombstone timestamp has passed
@@ -36,7 +36,7 @@ export default class MemoryStore implements Store {
 		}
 
 		return session.touch();
-    }
+	}
 
 	has(key: string): boolean {
 		return this.#sessions.has(key) && Boolean(this.get(key));
