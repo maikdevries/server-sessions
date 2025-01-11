@@ -1,10 +1,24 @@
-import type { Session, Store } from './types.ts';
+import type { Session, Store, StoreOptions } from './types.ts';
 
 export default class MemoryStore implements Store {
+	static #defaults: Required<StoreOptions> = {
+		'expiration': 1000 * 60 * 60 * 24,
+	};
+
+	#options: Required<StoreOptions>;
 	#sessions: Map<string, Session>;
 
-	constructor() {
+	constructor(options: StoreOptions = {}) {
+		this.#options = {
+			...MemoryStore.#defaults,
+			...options,
+		};
+
 		this.#sessions = new Map();
+	}
+
+	get expiration(): number {
+		return this.#options.expiration;
 	}
 
 	delete(key: string): boolean {
@@ -29,6 +43,7 @@ export default class MemoryStore implements Store {
 	}
 
 	set(key: string, session: Session): Store {
-		return this.#sessions.set(key, session.touch());
+		this.#sessions.set(key, session.touch());
+		return this;
 	}
 }

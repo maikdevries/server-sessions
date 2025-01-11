@@ -5,12 +5,10 @@ import ServerSession from './ServerSession.ts';
 import MemoryStore from './MemoryStore.ts';
 
 let cookie: Cookie = new Cookie();
-let expiration: number = 1000 * 60 * 60 * 24;
 let sessions: Store = new MemoryStore();
 
 export function configure(options: Options): void {
 	if (options.cookie) cookie = new Cookie(options.cookie);
-	if (options.expiration) expiration = options.expiration;
 	if (options.store) sessions = options.store;
 }
 
@@ -19,7 +17,7 @@ export async function handle(
 	next: (request: Request, session: Session) => Response | Promise<Response>,
 ): Promise<Response> {
 	const { [cookie.name]: sessionID = '' } = Cookie.parse(request.headers);
-	const session = sessions.get(sessionID) ?? new ServerSession(expiration, sessions);
+	const session = sessions.get(sessionID) ?? new ServerSession(sessions);
 
 	const response = await next(request, session);
 

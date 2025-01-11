@@ -11,7 +11,6 @@ export interface CookieOptions {
 
 export interface Options {
 	cookie?: CookieOptions;
-	expiration?: number;
 	store?: Store;
 }
 
@@ -27,8 +26,13 @@ export interface Session {
 }
 
 export interface Store {
+	readonly expiration: number;
 	delete: (key: string) => boolean;
 	get: (key: string) => Session | undefined;
 	has: (key: string) => boolean;
 	set: (key: string, session: Session) => Store;
+}
+
+export interface StoreOptions {
+	expiration?: number;
 }

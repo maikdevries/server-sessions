@@ -4,15 +4,13 @@ export default class ServerSession implements Session {
 	#id: string;
 	#tombstone: number;
 
-	#expiration: number;
 	#parent: Store;
 	#store: Map<string | number | symbol, unknown>;
 
-	constructor(expiration: number, parent: Store) {
+	constructor(parent: Store) {
 		this.#id = crypto.randomUUID();
-		this.#tombstone = Date.now() + expiration;
+		this.#tombstone = Date.now() + parent.expiration;
 
-		this.#expiration = expiration;
 		this.#parent = parent.set(this.#id, this);
 		this.#store = new Map();
 	}
@@ -48,7 +46,7 @@ export default class ServerSession implements Session {
 	}
 
 	touch(): Session {
-		this.#tombstone = Date.now() + this.#expiration;
+		this.#tombstone = Date.now() + this.#parent.expiration;
 		return this;
 	}
 }
