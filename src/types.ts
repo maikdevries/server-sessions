@@ -20,6 +20,7 @@ export interface Session {
 	delete: (key: string | number | symbol) => boolean;
 	get: <T = unknown>(key: string | number | symbol) => T | undefined;
 	has: (key: string | number | symbol) => boolean;
+	regenerate: () => Session;
 	set: (key: string | number | symbol, value: unknown) => Session;
 	terminate: () => void;
 	touch: () => Session;

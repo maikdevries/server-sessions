@@ -35,6 +35,15 @@ export default class ServerSession implements Session {
 		return this.#store.has(key);
 	}
 
+	regenerate(): Session {
+		this.#parent.delete(this.id);
+
+		this.#id = crypto.randomUUID();
+		this.#parent.set(this.id, this);
+
+		return this;
+	}
+
 	set(key: string | number | symbol, value: unknown): Session {
 		this.#store.set(key, value);
 		return this;
