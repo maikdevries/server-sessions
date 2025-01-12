@@ -18,6 +18,7 @@ export interface Session {
 	readonly id: string;
 	readonly tombstone: number;
 	delete: (key: string | number | symbol) => boolean;
+	flash: (key: string | number | symbol, value: unknown) => Session;
 	get: <T = unknown>(key: string | number | symbol) => T | undefined;
 	has: (key: string | number | symbol) => boolean;
 	regenerate: () => Session;

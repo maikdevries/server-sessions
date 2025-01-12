@@ -5,7 +5,7 @@ export default class ServerSession implements Session {
 	#tombstone: number;
 
 	#parent: Store;
-	#store: Map<string | number | symbol, unknown>;
+	#store: Map<string | number | symbol, [unknown, boolean?]>;
 
 	constructor(parent: Store) {
 		this.#id = crypto.randomUUID();
@@ -29,8 +29,16 @@ export default class ServerSession implements Session {
 		return this.#store.delete(key);
 	}
 
+	flash(key: string | number | symbol, value: unknown): Session {
+		this.#store.set(key, [value, true]);
+		return this;
+	}
+
 	get<T = unknown>(key: string | number | symbol): T | undefined {
-		return this.#store.get(key) as T | undefined;
+		const [value, flash] = this.#store.get(key) ?? [undefined, false];
+		if (flash) this.#store.delete(key);
+
+		return value as T | undefined;
 	}
 
 	has(key: string | number | symbol): boolean {
@@ -47,7 +55,7 @@ export default class ServerSession implements Session {
 	}
 
 	set(key: string | number | symbol, value: unknown): Session {
-		this.#store.set(key, value);
+		this.#store.set(key, [value]);
 		return this;
 	}
 
