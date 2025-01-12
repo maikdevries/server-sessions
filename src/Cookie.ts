@@ -34,6 +34,8 @@ export default class Cookie {
 
 	set(response: Response, value: unknown, ttl: number): Response {
 		const clone = new Response(response.body, response);
+
+		clone.headers.append('Cache-Control', 'no-store="Set-Cookie"');
 		clone.headers.append('Set-Cookie', this.#stringify(value, Math.round(ttl / 1000)));
 
 		return clone;
