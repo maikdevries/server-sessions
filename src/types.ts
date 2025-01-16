@@ -11,7 +11,7 @@ export interface CookieOptions {
 
 export interface Options {
 	cookie?: CookieOptions;
-	store?: Store;
+	store?: StoreOptions;
 }
 
 export interface Session {
@@ -37,4 +37,5 @@ export interface Store {
 
 export interface StoreOptions {
 	expiration?: number;
+	type?: Store;
 }

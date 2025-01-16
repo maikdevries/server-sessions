@@ -1,15 +1,15 @@
-import type { Options, Session, Store } from './types.ts';
+import type { Options, Session } from './types.ts';
 
 import Cookie from './Cookie.ts';
+import Manager from './Manager.ts';
 import ServerSession from './ServerSession.ts';
-import MemoryStore from './MemoryStore.ts';
 
 let cookie: Cookie = new Cookie();
-let sessions: Store = new MemoryStore();
+let manager: Manager = new Manager();
 
 export function configure(options: Options): void {
 	if (options.cookie) cookie = new Cookie(options.cookie);
-	if (options.store) sessions = options.store;
+	if (options.store) manager = new Manager(options.store);
 }
 
 export async function handle(
@@ -17,7 +17,7 @@ export async function handle(
 	next: (request: Request, session: Session) => Response | Promise<Response>,
 ): Promise<Response> {
 	const { [cookie.name]: sessionID = '' } = Cookie.parse(request.headers);
-	const session = sessions.get(sessionID) ?? new ServerSession(sessions);
+	const session = manager.get(sessionID) ?? new ServerSession(manager);
 
 	const response = await next(request, session);
 

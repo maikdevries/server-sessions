@@ -1,20 +1,23 @@
 import type { Session, Store, StoreOptions } from './types.ts';
 
-export default class MemoryStore implements Store {
+import MemoryStore from './stores/MemoryStore.ts';
+
+export default class Manager {
 	static #defaults: Required<StoreOptions> = {
 		'expiration': 1000 * 60 * 60 * 24,
+		'type': new MemoryStore(),
 	};
 
 	#options: Required<StoreOptions>;
-	#sessions: Map<string, Session>;
+	#store: Store;
 
 	constructor(options: StoreOptions = {}) {
 		this.#options = {
-			...MemoryStore.#defaults,
+			...Manager.#defaults,
 			...options,
 		};
 
-		this.#sessions = new Map();
+		this.#store = this.#options.type;
 	}
 
 	get expiration(): number {
@@ -22,16 +25,16 @@ export default class MemoryStore implements Store {
 	}
 
 	delete(key: string): boolean {
-		return this.#sessions.delete(key);
+		return this.#store.delete(key);
 	}
 
 	get(key: string): Session | undefined {
-		const session = this.#sessions.get(key);
+		const session = this.#store.get(key);
 		if (!session) return undefined;
 
 		// [NOTE] Delete the expired session if its tombstone timestamp has passed
 		if (session.tombstone <= Date.now()) {
-			this.#sessions.delete(key);
+			this.#store.delete(key);
 			return undefined;
 		}
 
@@ -39,11 +42,11 @@ export default class MemoryStore implements Store {
 	}
 
 	has(key: string): boolean {
-		return this.#sessions.has(key) && Boolean(this.get(key));
+		return this.#store.has(key) && Boolean(this.get(key));
 	}
 
-	set(key: string, session: Session): Store {
-		this.#sessions.set(key, session.touch());
+	set(key: string, session: Session): Manager {
+		this.#store.set(key, session.touch());
 		return this;
 	}
 }

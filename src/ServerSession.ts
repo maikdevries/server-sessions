@@ -1,13 +1,14 @@
-import type { Session, Store } from './types.ts';
+import type Manager from './Manager.ts'
+import type { Session } from './types.ts';
 
 export default class ServerSession implements Session {
 	#id: string;
 	#tombstone: number;
 
-	#parent: Store;
+	#parent: Manager;
 	#store: Map<string | number | symbol, [unknown, boolean?]>;
 
-	constructor(parent: Store) {
+	constructor(parent: Manager) {
 		this.#id = crypto.randomUUID();
 		this.#tombstone = Date.now() + parent.expiration;
 
