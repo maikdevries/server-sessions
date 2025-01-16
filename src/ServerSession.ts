@@ -1,21 +1,18 @@
-import type Manager from './Manager.ts'
 import type { Session } from './types.ts';
 
 export default class ServerSession implements Session {
 	#id: string;
 	#tombstone: number;
 
-	#parent: Manager;
+	#expiration: number;
 	#store: Map<string | number | symbol, [unknown, boolean?]>;
 
-	constructor(parent: Manager) {
+	constructor(expiration: number) {
 		this.#id = crypto.randomUUID();
-		this.#tombstone = Date.now() + parent.expiration;
+		this.#tombstone = Date.now() + expiration;
 
-		this.#parent = parent;
+		this.#expiration = expiration;
 		this.#store = new Map();
-
-		this.#parent.set(this.#id, this);
 	}
 
 	get id(): string {
@@ -47,11 +44,7 @@ export default class ServerSession implements Session {
 	}
 
 	regenerate(): Session {
-		this.#parent.delete(this.id);
-
 		this.#id = crypto.randomUUID();
-		this.#parent.set(this.id, this);
-
 		return this;
 	}
 
@@ -62,14 +55,13 @@ export default class ServerSession implements Session {
 
 	terminate(): void {
 		this.#store.clear();
-		this.#parent.delete(this.id);
 
 		this.#id = '';
 		this.#tombstone = 0;
 	}
 
 	touch(): Session {
-		this.#tombstone = Date.now() + this.#parent.expiration;
+		this.#tombstone = Date.now() + this.#expiration;
 		return this;
 	}
 }
