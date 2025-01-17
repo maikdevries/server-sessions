@@ -24,29 +24,29 @@ export default class Manager {
 		return this.#options.expiration;
 	}
 
-	delete(key: string): boolean {
-		return this.#store.delete(key);
+	async delete(key: string): Promise<boolean> {
+		return await this.#store.delete(key);
 	}
 
-	get(key: string): Session | undefined {
-		const session = this.#store.get(key);
+	async get(key: string): Promise<Session | undefined> {
+		const session = await this.#store.get(key);
 		if (!session) return undefined;
 
 		// [NOTE] Delete the expired session if its tombstone timestamp has passed
 		if (session.tombstone <= Date.now()) {
-			this.#store.delete(key);
+			await this.#store.delete(key);
 			return undefined;
 		}
 
 		return session.touch();
 	}
 
-	has(key: string): boolean {
-		return this.#store.has(key) && Boolean(this.get(key));
+	async has(key: string): Promise<boolean> {
+		return await this.#store.has(key) && Boolean(await this.get(key));
 	}
 
-	set(key: string, session: Session): Manager {
-		this.#store.set(key, session.touch());
+	async set(key: string, session: Session): Promise<Manager> {
+		await this.#store.set(key, session.touch());
 		return this;
 	}
 }

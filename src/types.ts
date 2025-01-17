@@ -28,11 +28,10 @@ export interface Session {
 }
 
 export interface Store {
-	readonly expiration: number;
-	delete: (key: string) => boolean;
-	get: (key: string) => Session | undefined;
-	has: (key: string) => boolean;
-	set: (key: string, session: Session) => Store;
+	delete: (key: string) => boolean | Promise<boolean>;
+	get: (key: string) => Session | undefined | Promise<Session | undefined>;
+	has: (key: string) => boolean | Promise<boolean>;
+	set: (key: string, session: Session) => Store | Promise<Store>;
 }
 
 export interface StoreOptions {
