@@ -21,6 +21,9 @@ export async function handle(
 
 	const response = await next(request, session);
 
+	// [NOTE] Delete outdated session entry if session has been regenerated
+	if (sessionID && sessionID !== session.id) await manager.delete(sessionID);
+
 	// [NOTE] Delete session entry if its tombstone timestamp has passed, else save to session store
 	if (session.tombstone <= Date.now()) await manager.delete(session.id);
 	else await manager.set(session.id, session);
