@@ -21,6 +21,9 @@ export async function handle(
 
 	const response = await next(request, session);
 
-	await manager.set(session.id, session);
+	// [NOTE] Delete session entry if its tombstone timestamp has passed, else save to session store
+	if (session.tombstone <= Date.now()) await manager.delete(session.id);
+	else await manager.set(session.id, session);
+
 	return cookie.set(response, session.id, session.tombstone - Date.now());
 }

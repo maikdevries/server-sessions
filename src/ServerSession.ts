@@ -55,8 +55,6 @@ export default class ServerSession implements Session {
 
 	terminate(): void {
 		this.#store.clear();
-
-		this.#id = '';
 		this.#tombstone = 0;
 	}
 
