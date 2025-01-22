@@ -2,7 +2,6 @@ import type { Options, Session } from './types.ts';
 
 import Cookie from './Cookie.ts';
 import Manager from './Manager.ts';
-import ServerSession from './ServerSession.ts';
 
 let cookie: Cookie = new Cookie();
 let manager: Manager = new Manager();
@@ -17,7 +16,7 @@ export async function handle(
 	next: (request: Request, session: Session) => Response | Promise<Response>,
 ): Promise<Response> {
 	const { [cookie.name]: sessionID = '' } = Cookie.parse(request.headers);
-	const session = await manager.get(sessionID) ?? new ServerSession(manager.expiration);
+	const session = await manager.get(sessionID) ?? manager.create();
 
 	const response = await next(request, session);
 
