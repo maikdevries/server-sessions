@@ -15,6 +15,7 @@ export interface Options {
 }
 
 export interface Session {
+	readonly accessed: number;
 	readonly id: string;
 	readonly tombstone: number;
 	delete: (key: string | number | symbol) => boolean;

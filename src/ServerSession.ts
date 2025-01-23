@@ -1,18 +1,21 @@
 import type { Session } from './types.ts';
 
 export default class ServerSession implements Session {
+	#accessed: number = Date.now();
 	#id: string;
 	#tombstone: number;
 
-	#expiration: number;
 	#store: Map<string | number | symbol, [unknown, boolean?]>;
 
 	constructor(expiration: number) {
 		this.#id = crypto.randomUUID();
 		this.#tombstone = Date.now() + expiration;
 
-		this.#expiration = expiration;
 		this.#store = new Map();
+	}
+
+	get accessed(): number {
+		return this.#accessed;
 	}
 
 	get id(): string {
@@ -59,7 +62,7 @@ export default class ServerSession implements Session {
 	}
 
 	touch(): Session {
-		this.#tombstone = Date.now() + this.#expiration;
+		this.#accessed = Date.now();
 		return this;
 	}
 }

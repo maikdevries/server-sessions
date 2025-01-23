@@ -23,8 +23,8 @@ export async function handle(
 	// [NOTE] Delete outdated session entry if session has been regenerated
 	if (sessionID && sessionID !== session.id) await manager.delete(sessionID);
 
-	// [NOTE] Delete session entry if its tombstone timestamp has passed, else save to session store
-	if (session.tombstone <= Date.now()) await manager.delete(session.id);
+	// [NOTE] Delete session entry if it has expired, else save to session store
+	if (Math.min(session.accessed + manager.lifetime.relative, session.tombstone) <= Date.now()) await manager.delete(session.id);
 	else await manager.set(session.id, session);
 
 	return cookie.set(response, session.id, session.tombstone - Date.now());
