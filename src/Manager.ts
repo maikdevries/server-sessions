@@ -5,7 +5,10 @@ import ServerSession from './ServerSession.ts';
 
 export default class Manager {
 	static #defaults: Required<StoreOptions> = {
-		'expiration': 1000 * 60 * 60 * 24,
+		'lifetime': {
+			'absolute': 1000 * 60 * 60 * 24,
+			'relative': 1000 * 60 * 30,
+		},
 		'type': new MemoryStore(),
 	};
 
@@ -21,8 +24,12 @@ export default class Manager {
 		this.#store = this.#options.type;
 	}
 
+	get lifetime(): Required<StoreOptions>['lifetime'] {
+		return this.#options.lifetime;
+	}
+
 	create(): Session {
-		return new ServerSession(this.#options.expiration);
+		return new ServerSession(this.#options.lifetime.absolute);
 	}
 
 	async delete(key: string): Promise<boolean> {

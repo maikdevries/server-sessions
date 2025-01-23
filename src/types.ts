@@ -35,6 +35,9 @@ export interface Store {
 }
 
 export interface StoreOptions {
-	expiration?: number;
+	lifetime?: {
+		absolute: number;
+		relative: number;
+	};
 	type?: Store;
 }
