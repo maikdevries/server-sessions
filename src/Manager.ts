@@ -40,8 +40,8 @@ export default class Manager {
 		const session = await this.#store.get(key);
 		if (!session) return undefined;
 
-		// [NOTE] Delete the expired session if its tombstone timestamp has passed
-		if (session.tombstone <= Date.now()) {
+		// [NOTE] Delete the expired session if it has not been recently accessed or its tombstone timestamp has passed
+		if (Math.min(session.accessed + this.#options.lifetime.relative, session.tombstone) <= Date.now()) {
 			await this.#store.delete(key);
 			return undefined;
 		}
