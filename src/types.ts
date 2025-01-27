@@ -15,9 +15,11 @@ export interface Options {
 }
 
 export interface Session {
-	readonly accessed: number;
 	readonly id: string;
-	readonly tombstone: number;
+	readonly lifetime: {
+		absolute: number;
+		relative: number;
+	};
 	delete: (key: string | number | symbol) => boolean;
 	flash: (key: string | number | symbol, value: unknown) => Session;
 	get: <T = unknown>(key: string | number | symbol) => T | undefined;

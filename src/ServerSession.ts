@@ -1,29 +1,27 @@
 import type { Session } from './types.ts';
 
 export default class ServerSession implements Session {
-	#accessed: number = Date.now();
 	#id: string;
-	#tombstone: number;
+	#lifetime: Session['lifetime'];
 
 	#store: Map<string | number | symbol, [unknown, boolean?]>;
 
-	constructor(expiration: number) {
+	constructor(lifetime: Session['lifetime']) {
 		this.#id = crypto.randomUUID();
-		this.#tombstone = Date.now() + expiration;
+		this.#lifetime = {
+			'absolute': Date.now() + lifetime.absolute,
+			'relative': Date.now() + lifetime.relative,
+		};
 
 		this.#store = new Map();
-	}
-
-	get accessed(): number {
-		return this.#accessed;
 	}
 
 	get id(): string {
 		return this.#id;
 	}
 
-	get tombstone(): number {
-		return this.#tombstone;
+	get lifetime(): Session['lifetime'] {
+		return this.#lifetime;
 	}
 
 	delete(key: string | number | symbol): boolean {
@@ -57,12 +55,12 @@ export default class ServerSession implements Session {
 	}
 
 	terminate(): void {
+		this.#lifetime.absolute = 0;
 		this.#store.clear();
-		this.#tombstone = 0;
 	}
 
 	touch(): Session {
-		this.#accessed = Date.now();
+		this.#lifetime.relative = Date.now();
 		return this;
 	}
 }

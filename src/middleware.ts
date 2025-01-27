@@ -24,8 +24,8 @@ export async function handle(
 	if (sessionID && sessionID !== session.id) await manager.delete(sessionID);
 
 	// [NOTE] Delete session entry if it has expired, else save to session store
-	if (Math.min(session.accessed + manager.lifetime.relative, session.tombstone) <= Date.now()) await manager.delete(session.id);
+	if (Math.min(session.lifetime.absolute, session.lifetime.relative) <= Date.now()) await manager.delete(session.id);
 	else await manager.set(session.id, session);
 
-	return cookie.set(response, session.id, session.tombstone - Date.now());
+	return cookie.set(response, session.id, session.lifetime.absolute - Date.now());
 }

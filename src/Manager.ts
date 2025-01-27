@@ -29,7 +29,7 @@ export default class Manager {
 	}
 
 	create(): Session {
-		return new ServerSession(this.#options.lifetime.absolute);
+		return new ServerSession(this.#options.lifetime);
 	}
 
 	async delete(key: string): Promise<boolean> {
@@ -41,7 +41,7 @@ export default class Manager {
 		if (!session) return undefined;
 
 		// [NOTE] Delete the expired session if it has not been recently accessed or its tombstone timestamp has passed
-		if (Math.min(session.accessed + this.#options.lifetime.relative, session.tombstone) <= Date.now()) {
+		if (Math.min(session.lifetime.absolute, session.lifetime.relative) <= Date.now()) {
 			await this.#store.delete(key);
 			return undefined;
 		}
