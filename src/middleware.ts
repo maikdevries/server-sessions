@@ -23,7 +23,7 @@ export async function handle(
 	// [NOTE] Delete outdated session entry if session has been regenerated
 	if (sessionID && sessionID !== session.id) await manager.delete(sessionID);
 
-	// [NOTE] Delete session entry if it has expired, else save to session store
+	// [NOTE] Delete an expired session if its absolute or relative lifetime has passed, else save to session store
 	if (Math.min(session.lifetime.absolute, session.lifetime.relative) <= Date.now()) await manager.delete(session.id);
 	else await manager.set(session.id, session);
 
