@@ -1,12 +1,12 @@
-import type { Session } from './types.ts';
+import type { Lifetime, Session } from './types.ts';
 
 export default class ServerSession implements Session {
 	#id: string;
-	#lifetime: Session['lifetime'];
+	#lifetime: Lifetime;
 
 	#store: Map<string | number | symbol, [unknown, boolean?]>;
 
-	constructor(lifetime: Session['lifetime']) {
+	constructor(lifetime: Lifetime) {
 		this.#id = crypto.randomUUID();
 		this.#lifetime = {
 			'absolute': Date.now() + lifetime.absolute,
@@ -20,7 +20,7 @@ export default class ServerSession implements Session {
 		return this.#id;
 	}
 
-	get lifetime(): Session['lifetime'] {
+	get lifetime(): Lifetime {
 		return this.#lifetime;
 	}
 

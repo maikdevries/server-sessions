@@ -9,6 +9,11 @@ export interface CookieOptions {
 	secure?: boolean;
 }
 
+export interface Lifetime {
+	absolute: number;
+	relative: number;
+}
+
 export interface Options {
 	cookie?: CookieOptions;
 	store?: StoreOptions;
@@ -16,10 +21,7 @@ export interface Options {
 
 export interface Session {
 	readonly id: string;
-	readonly lifetime: {
-		absolute: number;
-		relative: number;
-	};
+	readonly lifetime: Lifetime;
 	delete: (key: string | number | symbol) => boolean;
 	flash: (key: string | number | symbol, value: unknown) => Session;
 	get: <T = unknown>(key: string | number | symbol) => T | undefined;
@@ -38,9 +40,6 @@ export interface Store {
 }
 
 export interface StoreOptions {
-	lifetime?: {
-		absolute: number;
-		relative: number;
-	};
+	lifetime?: Lifetime;
 	type?: Store;
 }
