@@ -1,4 +1,4 @@
-import type { Lifetime, Session, Store, StoreOptions } from './types.ts';
+import type { Session, Store, StoreOptions } from './types.ts';
 
 import MemoryStore from './stores/MemoryStore.ts';
 import ServerSession from './ServerSession.ts';
@@ -22,10 +22,6 @@ export default class Manager {
 		};
 
 		this.#store = this.#options.type;
-	}
-
-	get lifetime(): Lifetime {
-		return this.#options.lifetime;
 	}
 
 	create(): Session {
