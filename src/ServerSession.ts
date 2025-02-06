@@ -2,17 +2,19 @@ import type { Lifetime, Session } from './types.ts';
 
 export default class ServerSession implements Session {
 	#id: string;
-	#lifetime: Lifetime;
 
+	#accessed: Lifetime;
+	#lifetime: Lifetime;
 	#store: Map<string | number | symbol, [unknown, boolean?]>;
 
 	constructor(lifetime: Lifetime) {
 		this.#id = crypto.randomUUID();
-		this.#lifetime = {
-			'absolute': Date.now() + lifetime.absolute,
-			'relative': Date.now() + lifetime.relative,
-		};
 
+		this.#accessed = {
+			'absolute': Date.now(),
+			'relative': Date.now(),
+		};
+		this.#lifetime = lifetime;
 		this.#store = new Map();
 	}
 
@@ -21,7 +23,10 @@ export default class ServerSession implements Session {
 	}
 
 	get lifetime(): Lifetime {
-		return this.#lifetime;
+		return {
+			'absolute': this.#accessed.absolute + this.#lifetime.absolute,
+			'relative': this.#accessed.relative + this.#lifetime.relative,
+		};
 	}
 
 	delete(key: string | number | symbol): boolean {
@@ -60,7 +65,7 @@ export default class ServerSession implements Session {
 	}
 
 	touch(): Session {
-		this.#lifetime.relative = Date.now();
+		this.#accessed.relative = Date.now();
 		return this;
 	}
 }
