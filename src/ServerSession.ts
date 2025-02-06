@@ -60,7 +60,11 @@ export default class ServerSession implements Session {
 	}
 
 	terminate(): void {
-		this.#lifetime.absolute = 0;
+		this.#lifetime = {
+			'absolute': 0,
+			'relative': 0,
+		};
+
 		this.#store.clear();
 	}
 
