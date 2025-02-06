@@ -21,7 +21,7 @@ export interface Options {
 
 export interface Session {
 	readonly id: string;
-	readonly lifetime: Lifetime;
+	readonly tombstone: Lifetime;
 	delete: (key: string | number | symbol) => boolean;
 	flash: (key: string | number | symbol, value: unknown) => Session;
 	get: <T = unknown>(key: string | number | symbol) => T | undefined;

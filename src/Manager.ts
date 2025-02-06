@@ -36,8 +36,8 @@ export default class Manager {
 		const session = await this.#store.get(key);
 		if (!session) return undefined;
 
-		// [NOTE] Delete an expired session if its absolute or relative lifetime has passed
-		if (Math.min(session.lifetime.absolute, session.lifetime.relative) <= Date.now()) {
+		// [NOTE] Delete an expired session if its absolute or relative tombstone has passed
+		if (Math.min(session.tombstone.absolute, session.tombstone.relative) <= Date.now()) {
 			await this.#store.delete(key);
 			return undefined;
 		}

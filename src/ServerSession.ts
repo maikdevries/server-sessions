@@ -22,7 +22,7 @@ export default class ServerSession implements Session {
 		return this.#id;
 	}
 
-	get lifetime(): Lifetime {
+	get tombstone(): Lifetime {
 		return {
 			'absolute': this.#accessed.absolute + this.#lifetime.absolute,
 			'relative': this.#accessed.relative + this.#lifetime.relative,
