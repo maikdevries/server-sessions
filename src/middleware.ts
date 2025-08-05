@@ -4,7 +4,7 @@ import type { Options, Session } from './types.ts';
 import Cookie from './Cookie.ts';
 import Manager from './Manager.ts';
 
-export function session<R>(options: Options): Middleware<R, { 'session': Session }> {
+export function session<R>(options: Options = {}): Middleware<R, { 'session': Session }> {
 	const cookie = new Cookie(options.cookie);
 	const manager = new Manager(options.store);
 
