@@ -97,5 +97,8 @@
 			"mod.ts",
 			"README.md"
 		]
+	},
+	"imports": {
+		"@maikdevries/server-router": "jsr:@maikdevries/server-router@^0.1.0"
 	}
 }
