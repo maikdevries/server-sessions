@@ -1,10 +1,10 @@
-import type { Middleware } from '@maikdevries/server-router';
+import type { Empty, Middleware } from '@maikdevries/server-router';
 import type { Options, Session } from './types.ts';
 
 import Cookie from './Cookie.ts';
 import Manager from './Manager.ts';
 
-export function session<R>(options: Options = {}): Middleware<R, { 'session': Session }> {
+export function session(options: Options = {}): Middleware<Empty, { 'session': Session }> {
 	const cookie = new Cookie(options.cookie);
 	const manager = new Manager(options.store);
 
