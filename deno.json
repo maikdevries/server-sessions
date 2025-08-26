@@ -99,6 +99,6 @@
 		]
 	},
 	"imports": {
-		"@maikdevries/server-router": "jsr:@maikdevries/server-router@^0.2.0"
+		"@maikdevries/server-router": "jsr:@maikdevries/server-router@^0.3.0"
 	}
 }
