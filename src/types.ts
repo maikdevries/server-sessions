@@ -23,11 +23,11 @@ export interface Session {
 	readonly id: string;
 	readonly tombstone: Lifetime;
 	delete: (key: string | number | symbol) => boolean;
-	flash: (key: string | number | symbol, value: unknown) => Session;
+	flash: <T = unknown>(key: string | number | symbol, value: T) => Session;
 	get: <T = unknown>(key: string | number | symbol) => T | undefined;
 	has: (key: string | number | symbol) => boolean;
 	regenerate: () => Session;
-	set: (key: string | number | symbol, value: unknown) => Session;
+	set: <T = unknown>(key: string | number | symbol, value: T) => Session;
 	terminate: () => void;
 	touch: () => Session;
 }

@@ -33,7 +33,7 @@ export default class ServerSession implements Session {
 		return this.#store.delete(key);
 	}
 
-	flash(key: string | number | symbol, value: unknown): Session {
+	flash<T = unknown>(key: string | number | symbol, value: T): Session {
 		this.#store.set(key, [value, true]);
 		return this;
 	}
@@ -54,7 +54,7 @@ export default class ServerSession implements Session {
 		return this;
 	}
 
-	set(key: string | number | symbol, value: unknown): Session {
+	set<T = unknown>(key: string | number | symbol, value: T): Session {
 		this.#store.set(key, [value]);
 		return this;
 	}
