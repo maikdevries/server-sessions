@@ -8,10 +8,7 @@
 		"checkJs": false,
 		"erasableSyntaxOnly": true,
 		"exactOptionalPropertyTypes": true,
-		"lib": [
-			"dom",
-			"deno.ns"
-		],
+		"lib": ["dom", "deno.ns"],
 		"noErrorTruncation": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitAny": true,
@@ -32,9 +29,7 @@
 		"verbatimModuleSyntax": true
 	},
 	"fmt": {
-		"include": [
-			"src/**/*.ts"
-		],
+		"include": ["src/**/*.ts"],
 		"bracePosition": "sameLine",
 		"indentWidth": 4,
 		"lineWidth": 140,
@@ -54,9 +49,7 @@
 		"useTabs": true
 	},
 	"lint": {
-		"include": [
-			"src/**/*.ts"
-		],
+		"include": ["src/**/*.ts"],
 		"rules": {
 			"include": [
 				"camelcase",
@@ -85,18 +78,11 @@
 				"triple-slash-reference",
 				"verbatim-module-syntax"
 			],
-			"tags": [
-				"recommended"
-			]
+			"tags": ["recommended"]
 		}
 	},
 	"publish": {
-		"include": [
-			"src/**/*.ts",
-			"LICENSE",
-			"mod.ts",
-			"README.md"
-		]
+		"include": ["src/**/*.ts", "LICENSE", "mod.ts", "README.md"]
 	},
 	"imports": {
 		"@maikdevries/server-router": "jsr:@maikdevries/server-router@^0.3.0"
