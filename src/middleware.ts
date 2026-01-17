@@ -1,4 +1,4 @@
-import type { Empty, Middleware } from '@maikdevries/server-router';
+import type { Empty, Middleware } from '@maikdevries/server-middleware';
 import type { Options, Session } from './types.ts';
 
 import Cookie from './Cookie.ts';
