@@ -8,7 +8,10 @@
 		"checkJs": false,
 		"erasableSyntaxOnly": true,
 		"exactOptionalPropertyTypes": true,
-		"lib": ["dom", "deno.ns"],
+		"lib": [
+			"dom",
+			"deno.ns"
+		],
 		"noErrorTruncation": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitAny": true,
@@ -91,7 +94,12 @@
 		}
 	},
 	"publish": {
-		"include": ["src/**/*.ts", "LICENSE", "mod.ts", "README.md"]
+		"include": [
+			"src/**/*.ts",
+			"LICENSE",
+			"mod.ts",
+			"README.md"
+		]
 	},
 	"imports": {
 		"@maikdevries/server-router": "jsr:@maikdevries/server-router@^0.3.0"
