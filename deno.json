@@ -29,7 +29,10 @@
 		"verbatimModuleSyntax": true
 	},
 	"fmt": {
-		"include": ["src/**/*.ts"],
+		"include": [
+			"mod.ts",
+			"src/**/*.ts"
+		],
 		"bracePosition": "sameLine",
 		"indentWidth": 4,
 		"lineWidth": 140,
@@ -49,7 +52,10 @@
 		"useTabs": true
 	},
 	"lint": {
-		"include": ["src/**/*.ts"],
+		"include": [
+			"mod.ts",
+			"src/**/*.ts"
+		],
 		"rules": {
 			"include": [
 				"camelcase",
