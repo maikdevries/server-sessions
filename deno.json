@@ -84,7 +84,10 @@
 				"triple-slash-reference",
 				"verbatim-module-syntax"
 			],
-			"tags": ["recommended"]
+			"tags": [
+				"recommended",
+				"workspace"
+			]
 		}
 	},
 	"publish": {
