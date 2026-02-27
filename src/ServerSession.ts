@@ -8,7 +8,7 @@ export default class ServerSession implements Session {
 	#store: Map<string | number | symbol, [unknown, boolean?]>;
 
 	constructor(lifetime: Lifetime<Temporal.Duration>) {
-		this.#id = crypto.randomUUID();
+		this.#id = self.crypto.randomUUID();
 
 		this.#accessed = {
 			'absolute': Temporal.Now.instant(),
@@ -50,7 +50,7 @@ export default class ServerSession implements Session {
 	}
 
 	regenerate(): Session {
-		this.#id = crypto.randomUUID();
+		this.#id = self.crypto.randomUUID();
 		return this;
 	}
 
