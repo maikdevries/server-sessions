@@ -9,9 +9,9 @@ export interface CookieOptions {
 	secure?: boolean;
 }
 
-export interface Lifetime {
-	absolute: number;
-	relative: number;
+export interface Lifetime<T extends Temporal.Instant | Temporal.Duration> {
+	absolute: T;
+	relative: T;
 }
 
 export interface Options {
@@ -21,7 +21,7 @@ export interface Options {
 
 export interface Session {
 	readonly id: string;
-	readonly tombstone: Lifetime;
+	readonly tombstone: Lifetime<Temporal.Instant>;
 	delete: (key: string | number | symbol) => boolean;
 	flash: <T = unknown>(key: string | number | symbol, value: T) => Session;
 	get: <T = unknown>(key: string | number | symbol) => T | undefined;
@@ -40,6 +40,6 @@ export interface Store {
 }
 
 export interface StoreOptions {
-	lifetime?: Lifetime;
+	lifetime?: Lifetime<Temporal.Duration>;
 	type?: Store;
 }

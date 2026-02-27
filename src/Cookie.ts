@@ -32,11 +32,11 @@ export default class Cookie {
 		return Object.fromEntries(cookies.split(';').map((cookie) => cookie.trim().split('=')));
 	}
 
-	set(response: Response, value: unknown, ttl: number): Response {
+	set(response: Response, value: unknown, ttl: Temporal.Duration): Response {
 		const clone = new Response(response.body, response);
 
 		clone.headers.append('Cache-Control', 'no-store="Set-Cookie"');
-		clone.headers.append('Set-Cookie', this.#stringify(value, Math.round(ttl / 1000)));
+		clone.headers.append('Set-Cookie', this.#stringify(value, ttl.seconds));
 
 		return clone;
 	}

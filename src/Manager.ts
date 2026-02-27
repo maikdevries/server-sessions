@@ -6,8 +6,8 @@ import ServerSession from './ServerSession.ts';
 export default class Manager {
 	static #defaults: Required<StoreOptions> = {
 		'lifetime': {
-			'absolute': 1000 * 60 * 60 * 24,
-			'relative': 1000 * 60 * 30,
+			'absolute': Temporal.Duration.from({ 'days': 1 }),
+			'relative': Temporal.Duration.from({ 'minutes': 30 }),
 		},
 		'type': new MemoryStore(),
 	};
@@ -37,7 +37,10 @@ export default class Manager {
 		if (!session) return undefined;
 
 		// [NOTE] Delete an expired session if its absolute or relative tombstone has passed
-		if (Math.min(session.tombstone.absolute, session.tombstone.relative) <= Date.now()) {
+		if (
+			Temporal.Instant.compare(session.tombstone.absolute, Temporal.Now.instant()) <= 0
+			|| Temporal.Instant.compare(session.tombstone.relative, Temporal.Now.instant()) <= 0
+		) {
 			await this.#store.delete(key);
 			return undefined;
 		}
