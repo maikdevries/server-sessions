@@ -36,15 +36,15 @@ export default class Cookie {
 		const clone = new Response(response.body, response);
 
 		clone.headers.append('Cache-Control', 'no-store="Set-Cookie"');
-		clone.headers.append('Set-Cookie', this.#stringify(value, ttl.seconds));
+		clone.headers.append('Set-Cookie', this.#stringify(value, ttl));
 
 		return clone;
 	}
 
-	#stringify(value: unknown, maxAge: number): string {
+	#stringify(value: unknown, ttl: Temporal.Duration): string {
 		const out = [
 			`${this.name}=${value}`,
-			`Max-Age=${maxAge}`,
+			`Max-Age=${ttl.seconds}`,
 			this.#options.domain && `Domain=${this.#options.domain}`,
 			this.#options.httpOnly && 'HttpOnly',
 			this.#options.partitioned && 'Partitioned',
