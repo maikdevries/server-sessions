@@ -1,21 +1,18 @@
 import type { Lifetime, Session } from './types.ts';
 
 export default class ServerSession implements Session {
-	#id: string;
+	#id: string = self.crypto.randomUUID();
+	#store: Map<string | number | symbol, [unknown, boolean?]> = new Map();
 
-	#accessed: Lifetime<Temporal.Instant>;
+	#accessed: Lifetime<Temporal.Instant> = {
+		'absolute': Temporal.Now.instant(),
+		'relative': Temporal.Now.instant(),
+	};
+
 	#lifetime: Lifetime<Temporal.Duration>;
-	#store: Map<string | number | symbol, [unknown, boolean?]>;
 
 	constructor(lifetime: Lifetime<Temporal.Duration>) {
-		this.#id = self.crypto.randomUUID();
-
-		this.#accessed = {
-			'absolute': Temporal.Now.instant(),
-			'relative': Temporal.Now.instant(),
-		};
 		this.#lifetime = lifetime;
-		this.#store = new Map();
 	}
 
 	get expired(): boolean {
