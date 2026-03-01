@@ -20,6 +20,7 @@ export interface Options {
 }
 
 export interface Session {
+	readonly expired: boolean;
 	readonly id: string;
 	readonly tombstone: Lifetime<Temporal.Instant>;
 	delete: (key: string | number | symbol) => boolean;

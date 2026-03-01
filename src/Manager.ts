@@ -36,11 +36,7 @@ export default class Manager {
 		const session = await this.#store.get(key);
 		if (!session) return undefined;
 
-		// [NOTE] Delete an expired session if its absolute or relative tombstone has passed
-		if (
-			Temporal.Instant.compare(session.tombstone.absolute, Temporal.Now.instant()) <= 0
-			|| Temporal.Instant.compare(session.tombstone.relative, Temporal.Now.instant()) <= 0
-		) {
+		if (session.expired) {
 			await this.delete(key);
 			return undefined;
 		}

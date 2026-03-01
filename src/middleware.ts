@@ -17,11 +17,7 @@ export function session(options: Partial<Options> = {}): Middleware<Empty, { 'se
 		// [NOTE] Delete outdated session entry if session has been regenerated
 		if (sessionID && sessionID !== session.id) await manager.delete(sessionID);
 
-		// [NOTE] Delete an expired session if its absolute or relative tombstone has passed, else save to session store
-		if (
-			Temporal.Instant.compare(session.tombstone.absolute, Temporal.Now.instant()) <= 0
-			|| Temporal.Instant.compare(session.tombstone.relative, Temporal.Now.instant()) <= 0
-		) await manager.delete(session.id);
+		if (session.expired) await manager.delete(session.id);
 		else await manager.set(session.id, session);
 
 		return cookie.set(response, session.id, Temporal.Now.instant().until(session.tombstone.absolute));

@@ -18,6 +18,13 @@ export default class ServerSession implements Session {
 		this.#store = new Map();
 	}
 
+	get expired(): boolean {
+		const now = Temporal.Now.instant();
+		const { absolute, relative } = this.tombstone;
+
+		return Temporal.Instant.compare(absolute, now) <= 0 || Temporal.Instant.compare(relative, now) <= 0;
+	}
+
 	get id(): string {
 		return this.#id;
 	}
