@@ -1,7 +1,7 @@
 import type { CookieOptions } from './types.ts';
 
 export default class Cookie {
-	static #defaults: Required<CookieOptions> = {
+	static #defaults: CookieOptions = {
 		'domain': '',
 		'httpOnly': true,
 		'name': 'sessionID',
@@ -12,9 +12,9 @@ export default class Cookie {
 		'secure': true,
 	};
 
-	#options: Required<CookieOptions>;
+	#options: CookieOptions;
 
-	constructor(options: CookieOptions = {}) {
+	constructor(options: Partial<CookieOptions> = {}) {
 		this.#options = {
 			...Cookie.#defaults,
 			...options,

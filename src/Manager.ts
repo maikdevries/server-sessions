@@ -4,7 +4,7 @@ import MemoryStore from './stores/MemoryStore.ts';
 import ServerSession from './ServerSession.ts';
 
 export default class Manager {
-	static #defaults: Required<StoreOptions> = {
+	static #defaults: StoreOptions = {
 		'lifetime': {
 			'absolute': Temporal.Duration.from({ 'days': 1 }),
 			'relative': Temporal.Duration.from({ 'minutes': 30 }),
@@ -12,10 +12,10 @@ export default class Manager {
 		'type': new MemoryStore(),
 	};
 
-	#options: Required<StoreOptions>;
+	#options: StoreOptions;
 	#store: Store;
 
-	constructor(options: StoreOptions = {}) {
+	constructor(options: Partial<StoreOptions> = {}) {
 		this.#options = {
 			...Manager.#defaults,
 			...options,

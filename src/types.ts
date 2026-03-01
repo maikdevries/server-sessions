@@ -1,12 +1,12 @@
 export interface CookieOptions {
-	domain?: string;
-	httpOnly?: boolean;
-	name?: string;
-	partitioned?: boolean;
-	path?: string;
-	prefix?: 'Host' | 'Secure' | '';
-	sameSite?: 'Strict' | 'Lax' | 'None';
-	secure?: boolean;
+	domain: string;
+	httpOnly: boolean;
+	name: string;
+	partitioned: boolean;
+	path: string;
+	prefix: 'Host' | 'Secure' | '';
+	sameSite: 'Strict' | 'Lax' | 'None';
+	secure: boolean;
 }
 
 export interface Lifetime<T extends Temporal.Instant | Temporal.Duration> {
@@ -15,8 +15,8 @@ export interface Lifetime<T extends Temporal.Instant | Temporal.Duration> {
 }
 
 export interface Options {
-	cookie?: CookieOptions;
-	store?: StoreOptions;
+	cookie: CookieOptions;
+	store: StoreOptions;
 }
 
 export interface Session {
@@ -40,6 +40,6 @@ export interface Store {
 }
 
 export interface StoreOptions {
-	lifetime?: Lifetime<Temporal.Duration>;
-	type?: Store;
+	lifetime: Lifetime<Temporal.Duration>;
+	type: Store;
 }
