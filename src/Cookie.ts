@@ -32,7 +32,7 @@ export default class Cookie {
 		return Object.fromEntries(cookies.split(';').map((cookie) => cookie.trim().split('=')));
 	}
 
-	set(response: Response, value: unknown, ttl: Temporal.Duration): Response {
+	set(response: Response, value: string, ttl: Temporal.Duration): Response {
 		const clone = new Response(response.body, response);
 
 		clone.headers.append('Cache-Control', 'no-store="Set-Cookie"');
@@ -41,7 +41,7 @@ export default class Cookie {
 		return clone;
 	}
 
-	#stringify(value: unknown, ttl: Temporal.Duration): string {
+	#stringify(value: string, ttl: Temporal.Duration): string {
 		const out = [
 			`${this.name}=${ttl.seconds <= 0 ? '' : value}`,
 			`Max-Age=${ttl.seconds}`,
