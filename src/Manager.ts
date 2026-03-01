@@ -45,7 +45,7 @@ export default class Manager {
 	}
 
 	async has(key: string): Promise<boolean> {
-		return await this.#store.has(key) && Boolean(await this.get(key));
+		return await this.#store.has(key);
 	}
 
 	async set(key: string, session: Session): Promise<Manager> {
