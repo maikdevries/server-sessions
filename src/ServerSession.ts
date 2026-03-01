@@ -40,7 +40,7 @@ export default class ServerSession implements Session {
 
 	get<T = unknown>(key: string | number | symbol): T | undefined {
 		const [value, flash] = this.#store.get(key) ?? [undefined, false];
-		if (flash) this.#store.delete(key);
+		if (flash) this.delete(key);
 
 		return value as T | undefined;
 	}

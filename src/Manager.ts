@@ -41,7 +41,7 @@ export default class Manager {
 			Temporal.Instant.compare(session.tombstone.absolute, Temporal.Now.instant()) <= 0
 			|| Temporal.Instant.compare(session.tombstone.relative, Temporal.Now.instant()) <= 0
 		) {
-			await this.#store.delete(key);
+			await this.delete(key);
 			return undefined;
 		}
 
