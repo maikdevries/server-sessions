@@ -43,7 +43,7 @@ export default class Cookie {
 
 	#stringify(value: unknown, ttl: Temporal.Duration): string {
 		const out = [
-			`${this.name}=${value}`,
+			`${this.name}=${ttl.seconds <= 0 ? '' : value}`,
 			`Max-Age=${ttl.seconds}`,
 			this.#options.domain && `Domain=${this.#options.domain}`,
 			this.#options.httpOnly && 'HttpOnly',
