@@ -1,3 +1,5 @@
-export { session } from './src/middleware.ts';
+export type { Session } from '@maikdevries/server-sessions/core';
 
-export type { Session, Store } from './src/types.ts';
+export { middleware } from '@maikdevries/server-sessions/http';
+
+export type { Store } from '@maikdevries/server-sessions/stores';

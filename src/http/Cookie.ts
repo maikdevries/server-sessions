@@ -1,6 +1,15 @@
-import type { CookieOptions } from './types.ts';
+export interface CookieOptions {
+	domain: string;
+	httpOnly: boolean;
+	name: string;
+	partitioned: boolean;
+	path: string;
+	prefix: 'Host' | 'Host-Http' | 'Http' | 'Secure' | '';
+	sameSite: 'Strict' | 'Lax' | 'None';
+	secure: boolean;
+}
 
-export default class Cookie {
+export class Cookie {
 	static #defaults: CookieOptions = {
 		'domain': '',
 		'httpOnly': true,

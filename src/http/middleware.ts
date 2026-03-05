@@ -1,10 +1,15 @@
 import type { Empty, Middleware } from '@maikdevries/server-middleware';
-import type { Options, Session } from './types.ts';
+import type { Session } from '@maikdevries/server-sessions';
 
-import Cookie from './Cookie.ts';
-import Manager from './Manager.ts';
+import { Manager, type StoreOptions } from '@maikdevries/server-sessions/core';
+import { Cookie, type CookieOptions } from '@maikdevries/server-sessions/http';
 
-export function session(options: Partial<Options> = {}): Middleware<Empty, { 'session': Session }> {
+interface Options {
+	cookie: CookieOptions;
+	store: StoreOptions;
+}
+
+export function middleware(options: Partial<Options> = {}): Middleware<Empty, { 'session': Session }> {
 	const cookie = new Cookie(options.cookie);
 	const manager = new Manager(options.store);
 

@@ -1,6 +1,6 @@
-import type { Session, Store } from '../types.ts';
+import type { Session, Store } from '@maikdevries/server-sessions';
 
-export default class implements Store {
+export class MemoryStore implements Store {
 	#sessions: Map<string, Session> = new Map();
 
 	delete(key: string): boolean {

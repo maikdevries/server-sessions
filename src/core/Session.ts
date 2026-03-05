@@ -1,17 +1,17 @@
-import type { Lifetime, Session } from './types.ts';
+import type { Lifetime, Tombstone } from '@maikdevries/server-sessions/core';
 
-export default class ServerSession implements Session {
+export class Session {
 	#id: string = self.crypto.randomUUID();
 	#store: Map<string | number | symbol, [unknown, boolean?]> = new Map();
 
-	#accessed: Lifetime<Temporal.Instant> = {
+	#accessed: Tombstone = {
 		'absolute': Temporal.Now.instant(),
 		'relative': Temporal.Now.instant(),
 	};
 
-	#lifetime: Lifetime<Temporal.Duration>;
+	#lifetime: Lifetime;
 
-	constructor(lifetime: Lifetime<Temporal.Duration>) {
+	constructor(lifetime: Lifetime) {
 		this.#lifetime = lifetime;
 	}
 
@@ -26,7 +26,7 @@ export default class ServerSession implements Session {
 		return this.#id;
 	}
 
-	get tombstone(): Lifetime<Temporal.Instant> {
+	get tombstone(): Tombstone {
 		return {
 			'absolute': this.#accessed.absolute.add(this.#lifetime.absolute),
 			'relative': this.#accessed.relative.add(this.#lifetime.relative),

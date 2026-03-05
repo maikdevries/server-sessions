@@ -1,9 +1,14 @@
-import type { Session, Store, StoreOptions } from './types.ts';
+import type { Store } from '@maikdevries/server-sessions';
 
-import MemoryStore from './stores/MemoryStore.ts';
-import ServerSession from './ServerSession.ts';
+import { type Lifetime, Session } from '@maikdevries/server-sessions/core';
+import { MemoryStore } from '@maikdevries/server-sessions/stores';
 
-export default class Manager {
+export interface StoreOptions {
+	lifetime: Lifetime;
+	type: Store;
+}
+
+export class Manager {
 	static #defaults: StoreOptions = {
 		'lifetime': {
 			'absolute': Temporal.Duration.from({ 'days': 1 }),
@@ -25,7 +30,7 @@ export default class Manager {
 	}
 
 	create(): Session {
-		return new ServerSession(this.#options.lifetime);
+		return new Session(this.#options.lifetime);
 	}
 
 	async delete(key: string): Promise<boolean> {
