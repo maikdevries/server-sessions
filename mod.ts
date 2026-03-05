@@ -1,5 +1,5 @@
-export { Manager, Session } from '@maikdevries/server-sessions/core';
+export { Manager, Session } from './src/core/mod.ts';
 
-export { middleware } from '@maikdevries/server-sessions/http';
+export { middleware } from './src/http/mod.ts';
 
-export type { Store } from '@maikdevries/server-sessions/stores';
+export type { Store } from './src/stores/mod.ts';
