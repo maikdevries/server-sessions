@@ -1,7 +1,5 @@
-import type { Store } from '@maikdevries/server-sessions';
-
 import { type Lifetime, Session } from '@maikdevries/server-sessions/core';
-import { MemoryStore } from '@maikdevries/server-sessions/stores';
+import { MemoryStore, type Store } from '@maikdevries/server-sessions/stores';
 
 export interface StoreOptions {
 	lifetime: Lifetime;

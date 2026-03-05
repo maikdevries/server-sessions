@@ -1,7 +1,6 @@
 import type { Empty, Middleware } from '@maikdevries/server-middleware';
-import type { Session } from '@maikdevries/server-sessions';
 
-import { Manager, type StoreOptions } from '@maikdevries/server-sessions/core';
+import { Manager, type Session, type StoreOptions } from '@maikdevries/server-sessions/core';
 import { Cookie, type CookieOptions } from '@maikdevries/server-sessions/http';
 
 interface Options {
