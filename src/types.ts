@@ -4,7 +4,7 @@ export interface CookieOptions {
 	name: string;
 	partitioned: boolean;
 	path: string;
-	prefix: 'Host' | 'Secure' | '';
+	prefix: 'Host' | 'Host-Http' | 'Http' | 'Secure' | '';
 	sameSite: 'Strict' | 'Lax' | 'None';
 	secure: boolean;
 }

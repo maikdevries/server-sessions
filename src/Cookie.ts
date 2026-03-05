@@ -7,7 +7,7 @@ export default class Cookie {
 		'name': 'sessionID',
 		'partitioned': false,
 		'path': '/',
-		'prefix': 'Host',
+		'prefix': 'Host-Http',
 		'sameSite': 'Lax',
 		'secure': true,
 	};
