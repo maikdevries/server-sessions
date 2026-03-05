@@ -15,7 +15,10 @@
 		"exactOptionalPropertyTypes": true,
 		"lib": [
 			"dom",
-			"deno.ns"
+			"dom.asynciterable",
+			"dom.iterable",
+			"deno.ns",
+			"deno.unstable"
 		],
 		"noErrorTruncation": true,
 		"noFallthroughCasesInSwitch": true,
