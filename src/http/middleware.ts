@@ -1,7 +1,7 @@
 import type { Empty, Middleware } from '@maikdevries/server-middleware';
 
-import { Manager, type Session, type StoreOptions } from '@maikdevries/server-sessions/core';
-import { Cookie, type CookieOptions } from '@maikdevries/server-sessions/http';
+import { Manager, type Session, type StoreOptions } from '../core/mod.ts';
+import { Cookie, type CookieOptions } from './mod.ts';
 
 interface Options {
 	cookie: CookieOptions;

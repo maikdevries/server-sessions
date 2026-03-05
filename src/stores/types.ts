@@ -1,4 +1,4 @@
-import type { Session } from '@maikdevries/server-sessions';
+import type { Session } from '../../mod.ts';
 
 export interface Store {
 	delete: (key: string) => boolean | Promise<boolean>;

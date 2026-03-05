@@ -1,5 +1,5 @@
-import { type Lifetime, Session } from '@maikdevries/server-sessions/core';
-import { MemoryStore, type Store } from '@maikdevries/server-sessions/stores';
+import { type Lifetime, Session } from './mod.ts';
+import { MemoryStore, type Store } from '../stores/mod.ts';
 
 export interface StoreOptions {
 	lifetime: Lifetime;
