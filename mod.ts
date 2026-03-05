@@ -1,4 +1,4 @@
-export type { Session } from '@maikdevries/server-sessions/core';
+export { Manager, Session } from '@maikdevries/server-sessions/core';
 
 export { middleware } from '@maikdevries/server-sessions/http';
 
