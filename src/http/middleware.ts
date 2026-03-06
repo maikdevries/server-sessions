@@ -1,11 +1,13 @@
 import type { Empty, Middleware } from '@maikdevries/server-middleware';
 
-import { Manager, type Session, type StoreOptions } from '@self/core';
+import { Manager, type Session, type SessionOptions } from '@self/core';
 import { Cookie, type CookieOptions } from '@self/http';
+import type { Store } from '@self/stores';
 
 interface Options {
 	cookie: CookieOptions;
-	store: StoreOptions;
+	session: SessionOptions;
+	store: Store;
 }
 
 export function middleware(options: Partial<Options> = {}): Middleware<Empty, { 'session': Session }> {
@@ -14,7 +16,7 @@ export function middleware(options: Partial<Options> = {}): Middleware<Empty, { 
 
 	return async (request, context, next) => {
 		const { [cookie.name]: sessionID = '' } = Cookie.parse(request.headers);
-		const session = await manager.get(sessionID) ?? manager.create();
+		const session = await manager.get(sessionID) ?? manager.create(options.session);
 
 		const response = await next(request, { ...context, 'session': session });
 

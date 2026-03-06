@@ -1,34 +1,15 @@
-import { type Lifetime, Session } from '@self/core';
+import { Session, type SessionOptions } from '@self/core';
 import { MemoryStore, type Store } from '@self/stores';
 
-export interface StoreOptions {
-	lifetime: Lifetime;
-	type: Store;
-}
-
 export class Manager {
-	static #defaults: StoreOptions = {
-		'lifetime': {
-			'absolute': Temporal.Duration.from({ 'days': 1 }),
-			'relative': Temporal.Duration.from({ 'minutes': 30 }),
-		},
-		'type': new MemoryStore(),
-	};
-
-	#options: StoreOptions;
 	#store: Store;
 
-	constructor(options: Partial<StoreOptions> = {}) {
-		this.#options = {
-			...Manager.#defaults,
-			...options,
-		};
-
-		this.#store = this.#options.type;
+	constructor(store: Store = new MemoryStore()) {
+		this.#store = store;
 	}
 
-	create(): Session {
-		return new Session(this.#options.lifetime);
+	create(options: Partial<SessionOptions> = {}): Session {
+		return new Session(options);
 	}
 
 	async delete(key: string): Promise<boolean> {

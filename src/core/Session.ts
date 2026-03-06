@@ -1,18 +1,31 @@
 import type { Lifetime, Tombstone } from '@self/core';
 
+export interface SessionOptions {
+	'lifetime': Lifetime;
+}
+
 export class Session {
-	#id: string = self.crypto.randomUUID();
-	#store: Map<string | number | symbol, [unknown, boolean?]> = new Map();
+	static #defaults: SessionOptions = {
+		'lifetime': {
+			'absolute': Temporal.Duration.from({ 'days': 1 }),
+			'relative': Temporal.Duration.from({ 'minutes': 30 }),
+		},
+	};
 
 	#accessed: Tombstone = {
 		'absolute': Temporal.Now.instant(),
 		'relative': Temporal.Now.instant(),
 	};
 
-	#lifetime: Lifetime;
+	#id: string = self.crypto.randomUUID();
+	#options: SessionOptions;
+	#store: Map<string | number | symbol, [unknown, boolean?]> = new Map();
 
-	constructor(lifetime: Lifetime) {
-		this.#lifetime = lifetime;
+	constructor(options: Partial<SessionOptions> = {}) {
+		this.#options = {
+			...Session.#defaults,
+			...options,
+		};
 	}
 
 	get expired(): boolean {
@@ -28,8 +41,8 @@ export class Session {
 
 	get tombstone(): Tombstone {
 		return {
-			'absolute': this.#accessed.absolute.add(this.#lifetime.absolute),
-			'relative': this.#accessed.relative.add(this.#lifetime.relative),
+			'absolute': this.#accessed.absolute.add(this.#options.lifetime.absolute),
+			'relative': this.#accessed.relative.add(this.#options.lifetime.relative),
 		};
 	}
 
@@ -64,7 +77,7 @@ export class Session {
 	}
 
 	terminate(): void {
-		this.#lifetime = {
+		this.#options.lifetime = {
 			'absolute': Temporal.Duration.from({}),
 			'relative': Temporal.Duration.from({}),
 		};
