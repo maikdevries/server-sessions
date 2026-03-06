@@ -1,7 +1,13 @@
-import type { Lifetime, Tombstone } from '@self/core';
-
 export interface SessionOptions {
-	'lifetime': Lifetime;
+	'lifetime': {
+		absolute: Temporal.Duration;
+		relative: Temporal.Duration;
+	};
+}
+
+export interface Tombstone {
+	absolute: Temporal.Instant;
+	relative: Temporal.Instant;
 }
 
 export class Session {
