@@ -110,6 +110,10 @@
 		]
 	},
 	"imports": {
+		"@self": "./mod.ts",
+		"@self/core": "./src/core/mod.ts",
+		"@self/http": "./src/http/mod.ts",
+		"@self/stores": "./src/stores/mod.ts",
 		"@maikdevries/server-middleware": "jsr:@maikdevries/server-middleware@^0.2.0"
 	}
 }

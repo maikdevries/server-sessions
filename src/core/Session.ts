@@ -1,4 +1,4 @@
-import type { Lifetime, Tombstone } from './mod.ts';
+import type { Lifetime, Tombstone } from '@self/core';
 
 export class Session {
 	#id: string = self.crypto.randomUUID();

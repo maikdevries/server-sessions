@@ -1,4 +1,4 @@
-import type { Session, Store } from '../../mod.ts';
+import type { Session, Store } from '@self';
 
 export class MemoryStore implements Store {
 	#sessions: Map<string, Session> = new Map();

@@ -1,5 +1,5 @@
-export { Manager, Session } from './src/core/mod.ts';
+export { Manager, Session } from '@self/core';
 
-export { middleware } from './src/http/mod.ts';
+export { middleware } from '@self/http';
 
-export type { Store } from './src/stores/mod.ts';
+export type { Store } from '@self/stores';

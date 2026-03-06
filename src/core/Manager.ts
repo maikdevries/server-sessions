@@ -1,5 +1,5 @@
-import { type Lifetime, Session } from './mod.ts';
-import { MemoryStore, type Store } from '../stores/mod.ts';
+import { type Lifetime, Session } from '@self/core';
+import { MemoryStore, type Store } from '@self/stores';
 
 export interface StoreOptions {
 	lifetime: Lifetime;
