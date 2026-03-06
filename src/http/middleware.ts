@@ -5,8 +5,8 @@ import { Cookie, type CookieOptions } from '@self/http';
 import type { Store } from '@self/stores';
 
 interface Options {
-	cookie: CookieOptions;
-	session: SessionOptions;
+	cookie: Partial<CookieOptions>;
+	session: Partial<SessionOptions>;
 	store: Store;
 }
 
