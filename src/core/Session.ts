@@ -13,7 +13,7 @@ export interface SessionOptions {
 		/**
 		 * Specifies the maximum duration since session creation.
 		 *
-		 * @default Temporal.Duration.from({ 'days': 1 })
+		 * @default Temporal.Duration.from({ 'hours': 24 })
 		 */
 		absolute: Temporal.Duration;
 		/**
@@ -71,7 +71,7 @@ export interface Tombstone {
 export class Session {
 	static #defaults: SessionOptions = {
 		'lifetime': {
-			'absolute': Temporal.Duration.from({ 'days': 1 }),
+			'absolute': Temporal.Duration.from({ 'hours': 24 }),
 			'relative': Temporal.Duration.from({ 'minutes': 30 }),
 		},
 	};
