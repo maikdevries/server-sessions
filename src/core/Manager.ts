@@ -22,7 +22,7 @@ import { MemoryStore, type Store } from '@self/stores';
  * await restored?.get<string>('name'); // 'John'
  * ```
  */
-export class Manager {
+export class Manager implements Store {
 	#store: Store;
 
 	/**
