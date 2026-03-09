@@ -5,7 +5,7 @@ import { Cookie, type CookieOptions } from '@self/http';
 import type { Store } from '@self/stores';
 
 /**
- * Configuration options to control middleware behaviour.
+ * Configuration options to control {@link middleware} behaviour.
  */
 export interface Options {
 	/**
@@ -29,8 +29,8 @@ export interface Options {
 }
 
 /**
- * Constructs a middleware function that provides automatic session creation, hydration, persistence and cookie
- * management for each incoming request.
+ * Constructs a middleware function that provides automatic session creation, hydration and persistence for each
+ * incoming request.
  *
  * @param options - Middleware configuration as (partial) {@link Options} object, which overrides respective defaults.
  * @returns Middleware function that extends the request context with a `'session': Session` property.

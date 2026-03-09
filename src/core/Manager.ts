@@ -8,36 +8,41 @@ import { MemoryStore, type Store } from '@self/stores';
  *
  * @example Basic usage
  * ```ts
+ * import { Manager } from '@maikdevries/server-sessions/core';
+ *
  * const manager = new Manager();
  *
  * const session = manager.create();
  * session.set<string>('name', 'John');
  *
  * await manager.set(session.id, session);
+ * await manager.has(session.id); // true
+ *
  * const restored = await manager.get(session.id);
+ * await restored?.get<string>('name'); // 'John'
  * ```
  */
 export class Manager {
 	#store: Store;
 
 	/**
-	 * Constructs a new session manager that wraps the given storage driver.
+	 * Constructs a new session manager that wraps the supplied storage driver.
 	 *
-	 * @param store - {@link Store} storage driver, which defaults to a new {@link MemoryStore}.
+	 * @param store - {@link Store}-compliant storage driver, which defaults to a new {@link MemoryStore}.
 	 */
 	constructor(store: Store = new MemoryStore()) {
 		this.#store = store;
 	}
 
 	/**
-	 * Construct a new {@link Session} without writing it to the store.
+	 * Construct a new session without writing it to the store.
 	 */
 	create(options: Partial<SessionOptions> = {}): Session {
 		return new Session(options);
 	}
 
 	/**
-	 * Removes a session associated with the given key from the store.
+	 * Removes a session associated with the supplied key from the store.
 	 *
 	 * @returns true if a session in the store existed and has been removed, or false if the session does not exist.
 	 */
@@ -68,7 +73,7 @@ export class Manager {
 	}
 
 	/**
-	 * Checks whether a session associated with the given key exists in the store.
+	 * Checks whether a session associated with the supplied key exists in the store.
 	 *
 	 * @returns true if a session in the store exists, or false if the session does not exist.
 	 */

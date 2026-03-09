@@ -51,6 +51,8 @@ export interface Tombstone {
  *
  * @example Basic usage
  * ```ts
+ * import { Session } from '@maikdevries/server-sessions/core';
+ *
  * const session = new Session({
  * 	'lifetime': {
  * 		'absolute': Temporal.Duration.from({ 'hours': 12 }),
@@ -61,9 +63,9 @@ export interface Tombstone {
  * session.set<string>('name', 'John');
  * session.flash<string>('message', 'Password changed successfully');
  *
- * const name = session.get<string>('name'); // 'John'
- * const message = session.get<string>('message'); // 'Password changed successfully'
- * const existence = session.has('message'); // false
+ * session.get<string>('name'); // 'John'
+ * session.get<string>('message'); // 'Password changed successfully'
+ * session.has('message'); // false
  * ```
  */
 export class Session {
@@ -84,9 +86,10 @@ export class Session {
 	#store: Map<string | number | symbol, [unknown, boolean?]> = new Map();
 
 	/**
-	 * Constructs a new session with the given configuration options.
+	 * Constructs a new session with the supplied configuration options.
 	 *
-	 * @param options - Session configuration as (partial) {@link SessionOptions} object, which override defaults.
+	 * @param options - Session configuration as (partial) {@link SessionOptions} object, which overrides respective
+	 * defaults.
 	 */
 	constructor(options: Partial<SessionOptions> = {}) {
 		this.#options = {
@@ -96,8 +99,7 @@ export class Session {
 	}
 
 	/**
-	 * Whether the current session has passed either one of its absolute or relative {@link Session.tombstone} time
-	 * instants.
+	 * Whether the session has passed either one of its absolute or relative {@link Session.tombstone} time instants.
 	 */
 	get expired(): boolean {
 		const now = Temporal.Now.instant();
@@ -107,14 +109,14 @@ export class Session {
 	}
 
 	/**
-	 * The current session's unique identifier, which gets updated on each call to {@link Session.regenerate()}.
+	 * The session's unique identifier, which gets updated on each call to {@link Session.regenerate()}.
 	 */
 	get id(): string {
 		return this.#id;
 	}
 
 	/**
-	 * The current session's absolute and relative expiration time instants.
+	 * The session's absolute and relative expiration time instants.
 	 */
 	get tombstone(): Tombstone {
 		return {
@@ -124,7 +126,7 @@ export class Session {
 	}
 
 	/**
-	 * Removes the entry associated with the given key from the current session's store.
+	 * Removes the entry associated with the supplied key from the session's store.
 	 *
 	 * @returns true if an entry in the store existed and has been removed, or false if the entry does not exist.
 	 */
@@ -133,12 +135,14 @@ export class Session {
 	}
 
 	/**
-	 * Stores a value that will be automatically deleted from the current session's store upon its retrieval.
+	 * Stores a value that will be automatically deleted from the session's store upon its retrieval.
 	 *
 	 * This is useful for one-time messages that should not persist across more than one read.
 	 *
 	 * @example Basic usage
 	 * ```ts
+	 * import { Session } from '@maikdevries/server-sessions/core';
+	 *
 	 * const session = new Session();
 	 * session.flash<string>('message', 'Password changed successfully');
 	 *
@@ -152,7 +156,7 @@ export class Session {
 	}
 
 	/**
-	 * Retrieves the value associated with the given key from the current session's store.
+	 * Retrieves the value associated with the supplied key from the session's store.
 	 *
 	 * This will automatically delete values stored via {@link Session.flash()} from the store upon their retrieval.
 	 */
@@ -164,7 +168,7 @@ export class Session {
 	}
 
 	/**
-	 * Checks whether an entry associated with the given key exists in the current session's store.
+	 * Checks whether an entry associated with the supplied key exists in the session's store.
 	 *
 	 * @returns true if an entry in the store exists, or false if the entry does not exist.
 	 */
@@ -173,7 +177,7 @@ export class Session {
 	}
 
 	/**
-	 * Updates the current session's ID to a new unique identifier.
+	 * Updates the session's ID to a new unique identifier.
 	 *
 	 * This is useful after privilege escalation to prevent session fixation attacks.
 	 */
@@ -183,9 +187,9 @@ export class Session {
 	}
 
 	/**
-	 * Stores a value associated with the given key in the current session's store.
+	 * Stores a value associated with the supplied key in the session's store.
 	 *
-	 * This will overwrite any existing value stored previously at the given key.
+	 * This will overwrite any existing value stored previously at the supplied key.
 	 */
 	set<T = unknown>(key: string | number | symbol, value: T): Session {
 		this.#store.set(key, [value]);
@@ -193,7 +197,7 @@ export class Session {
 	}
 
 	/**
-	 * Invalidates the current session and deletes all its stored data.
+	 * Invalidates the session and deletes all its stored data.
 	 *
 	 * This is useful to forcibly end the current session.
 	 */
@@ -207,7 +211,7 @@ export class Session {
 	}
 
 	/**
-	 * Resets the current session's relative expiration time instant to the current time instant.
+	 * Resets the session's relative expiration time instant to the current time instant.
 	 *
 	 * This is useful to keep the current session alive when active.
 	 */

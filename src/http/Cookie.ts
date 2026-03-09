@@ -100,7 +100,7 @@ export class Cookie {
 	#options: CookieOptions;
 
 	/**
-	 * Constructs a new cookie manager with the given configuration options.
+	 * Constructs a new cookie manager with the supplied configuration options.
 	 *
 	 * @param options - Cookie configuration as (partial) {@link CookieOptions} object, which overrides respective
 	 * defaults.
@@ -130,9 +130,9 @@ export class Cookie {
 	}
 
 	/**
-	 * Sets the given value as time-restricted cookie on a clone of the given response.
+	 * Sets the supplied value as time-restricted cookie on a clone of the supplied response.
 	 *
-	 * @returns Response with both the `Cache-Control` and `Set-Cookie` HTTP response headers set.
+	 * @returns Cloned response with both the `Cache-Control` and `Set-Cookie` HTTP response headers set.
 	 */
 	set(response: Response, value: string, ttl: Temporal.Duration): Response {
 		const clone = new Response(response.body, response);
