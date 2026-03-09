@@ -7,7 +7,7 @@ import type { Store } from '@self/stores';
 /**
  * Configuration options to control middleware behaviour.
  */
-interface Options {
+export interface Options {
 	/**
 	 * Configuration options that control behaviour related to the session cookie.
 	 *
