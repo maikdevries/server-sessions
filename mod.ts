@@ -7,7 +7,7 @@
  *
  * @example Basic usage
  * ```ts
- * import { Manager } from '@maikdevries/server-sessions/core';
+ * import { Manager } from '@maikdevries/server-sessions';
  *
  * const manager = new Manager();
  *
@@ -26,19 +26,20 @@
  * import { chain, type Handler, type Middleware } from '@maikdevries/server-middleware';
  * import { middleware, type Session } from '@maikdevries/server-sessions';
  *
- * const identity: Middleware<{ 'session': Session }, { 'name': string }> = async (request, context, next) => {
- * 	return await next(request, { ...context, 'name': context.session.get<string>('name') ?? 'John' });
+ * const identity: Middleware<{ 'session': Session }, { 'name': string }> = (request, context, next) => {
+ * 	return next(request, { ...context, 'name': context.session.get<string>('name') ?? 'John' });
  * };
  *
- * const greeting: Handler<{ 'name': string }> = async (request, context) => {
+ * const greeting: Handler<{ 'name': string }> = (request, context) => {
  * 	return new Response(`Hi ${context.name}!`);
  * };
  *
- * const app = chain(middleware()).add(identity).add(greeting);
+ * const app = (request: Request) => chain(middleware()).add(identity).add(greeting)(request, {});
  * ```
  *
  * @module
  */
+
 export { Manager, Session } from '@self/core';
 
 export { middleware } from '@self/http';
