@@ -46,8 +46,8 @@ export class Manager implements Store {
 	 *
 	 * @returns true if a session in the store existed and has been removed, or false if the session does not exist.
 	 */
-	async delete(key: string): Promise<boolean> {
-		return await this.#store.delete(key);
+	delete(key: string): boolean | Promise<boolean> {
+		return this.#store.delete(key);
 	}
 
 	/**
@@ -77,8 +77,8 @@ export class Manager implements Store {
 	 *
 	 * @returns true if a session in the store exists, or false if the session does not exist.
 	 */
-	async has(key: string): Promise<boolean> {
-		return await this.#store.has(key);
+	has(key: string): boolean | Promise<boolean> {
+		return this.#store.has(key);
 	}
 
 	/**
