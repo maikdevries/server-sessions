@@ -14,11 +14,10 @@
 		"erasableSyntaxOnly": true,
 		"exactOptionalPropertyTypes": true,
 		"lib": [
+			"deno.ns",
 			"dom",
 			"dom.asynciterable",
-			"dom.iterable",
-			"deno.ns",
-			"deno.unstable"
+			"dom.iterable"
 		],
 		"noErrorTruncation": true,
 		"noFallthroughCasesInSwitch": true,
