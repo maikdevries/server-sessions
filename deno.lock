@@ -1,0 +1,16 @@
+{
+  "version": "5",
+  "specifiers": {
+    "jsr:@maikdevries/server-middleware@~0.3.1": "0.3.1"
+  },
+  "jsr": {
+    "@maikdevries/server-middleware@0.3.1": {
+      "integrity": "52208e0bb2f93f36e0a954bf975c567a1a094527bc28da09452ecbf39c087736"
+    }
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@maikdevries/server-middleware@~0.3.1"
+    ]
+  }
+}
