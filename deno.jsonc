@@ -1,3 +1,4 @@
+// [SPEC] https://raw.githubusercontent.com/denoland/deno/refs/heads/main/cli/schemas/config-file.v1.json
 {
 	"name": "@maikdevries/server-sessions",
 	"version": "0.7.0",
@@ -5,46 +6,50 @@
 		".": "./mod.ts",
 		"./core": "./src/core/mod.ts",
 		"./http": "./src/http/mod.ts",
-		"./stores": "./src/stores/mod.ts"
+		"./stores": "./src/stores/mod.ts",
 	},
 	"compilerOptions": {
-		"allowUnreachableCode": false,
-		"allowUnusedLabels": false,
-		"checkJs": false,
+		// "allowUnreachableCode": false,
+		// "allowUnusedLabels": false,
+		// "checkJs": false,
 		"erasableSyntaxOnly": true,
 		"exactOptionalPropertyTypes": true,
+		// "isolatedDeclarations": false,
 		"lib": [
 			"deno.ns",
 			"dom",
-			"dom.asynciterable",
-			"dom.iterable"
 		],
+		// "module": "esnext",
+		// "moduleResolution": "bundler",
 		"noErrorTruncation": true,
 		"noFallthroughCasesInSwitch": true,
-		"noImplicitAny": true,
-		"noImplicitOverride": true,
+		// "noImplicitAny": true,
+		// "noImplicitOverride": true,
 		"noImplicitReturns": true,
-		"noImplicitThis": true,
+		// "noImplicitThis": true,
 		"noPropertyAccessFromIndexSignature": true,
 		"noUncheckedIndexedAccess": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"strict": true,
-		"strictBindCallApply": true,
-		"strictBuiltinIteratorReturn": true,
-		"strictFunctionTypes": true,
-		"strictNullChecks": true,
-		"strictPropertyInitialization": true,
-		"useUnknownInCatchVariables": true,
-		"verbatimModuleSyntax": true
+		"skipLibCheck": true,
+		// "strict": true,
+		// "strictBindCallApply": true,
+		// "strictBuiltinIteratorReturn": true,
+		// "strictFunctionTypes": true,
+		// "strictNullChecks": true,
+		// "strictPropertyInitialization": true,
+		// "types": [],
+		// "useUnknownInCatchVariables": true,
+		"verbatimModuleSyntax": true,
 	},
 	"fmt": {
 		"include": [
 			"mod.ts",
-			"src/**/*.ts"
+			"src/**/*.ts",
 		],
 		"bracePosition": "sameLine",
 		"indentWidth": 4,
+		// "json.trailingCommas": "never",
 		"lineWidth": 120,
 		"newLineKind": "lf",
 		"nextControlFlowPosition": "sameLine",
@@ -54,17 +59,19 @@
 		"semiColons": true,
 		"singleBodyPosition": "sameLine",
 		"singleQuote": true,
+		"sortNamedExports": "caseInsensitive",
+		"sortNamedImports": "caseInsensitive",
 		"spaceAround": false,
 		"spaceSurroundingProperties": true,
 		"trailingCommas": "onlyMultiLine",
 		"typeLiteral.separatorKind": "semiColon",
 		"useBraces": "whenNotSingleLine",
-		"useTabs": true
+		"useTabs": true,
 	},
 	"lint": {
 		"include": [
 			"mod.ts",
-			"src/**/*.ts"
+			"src/**/*.ts",
 		],
 		"rules": {
 			"include": [
@@ -94,27 +101,27 @@
 				"prefer-ascii",
 				"single-var-declarator",
 				"triple-slash-reference",
-				"verbatim-module-syntax"
+				"verbatim-module-syntax",
 			],
 			"tags": [
 				"recommended",
-				"workspace"
-			]
-		}
+				"workspace",
+			],
+		},
 	},
 	"publish": {
 		"include": [
 			"src/**/*.ts",
 			"LICENSE",
 			"mod.ts",
-			"README.md"
-		]
+			"README.md",
+		],
 	},
 	"imports": {
 		"@self": "./mod.ts",
 		"@self/core": "./src/core/mod.ts",
 		"@self/http": "./src/http/mod.ts",
 		"@self/stores": "./src/stores/mod.ts",
-		"@maikdevries/server-middleware": "jsr:@maikdevries/server-middleware@^0.3.1"
-	}
+		"@maikdevries/server-middleware": "jsr:@maikdevries/server-middleware@^0.3.1",
+	},
 }
